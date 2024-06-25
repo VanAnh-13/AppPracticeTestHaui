@@ -15,7 +15,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     private var _binding: VB? = null
 
     protected val binding: VB
-        get() = binding as VB
+        get() = _binding as VB
 
     protected abstract val viewModel: BaseViewModel
 
