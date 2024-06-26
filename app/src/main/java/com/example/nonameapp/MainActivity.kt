@@ -10,15 +10,11 @@ import com.example.nonameapp.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
     override fun initData() {
-        TODO("Not yet implemented")
     }
 
     override fun bindData() {
-        TODO("Not yet implemented")
     }
 
     override fun setOnClick() {
-        TODO("Not yet implemented")
     }
-
 }

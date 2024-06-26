@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">No Name App</string>
+    <string name="sign_up_h1">Sign up</string>
+    <string name="sign_up_h2">Create an account to get started</string>
+    <string name="sign_up_name">Enter a username*</string>
+    <string name="sign_up_email_address">Enter your email*</string>
+    <string name="sign_up_password">Create a password*</string>
+    <string name="sign_up_confirm">Confirm password*</string>
+    <string name="text_button_sign_up">Sign up</string>
 </resources>
