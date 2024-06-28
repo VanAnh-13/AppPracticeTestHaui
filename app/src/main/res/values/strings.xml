@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">No Name App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="success">Lấy mật khẩu</string>
+    <string name="this_is_logo_app">THis is logo app</string>
+    <string name="enter_email_address">Nhập địa chỉ email:</string>
 </resources>
