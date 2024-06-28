@@ -1,34 +1,29 @@
-package com.example.nonameapp.ui.register
+package com.example.nonameapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentSignUpBinding
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
     override val viewModel: BaseViewModel
         get() = TODO("Not yet implemented")
 
     override fun initData() {
-
+        TODO("Not yet implemented")
     }
 
     override fun bindData() {
-
+        TODO("Not yet implemented")
     }
 
     override fun observeData() {
-
+        TODO("Not yet implemented")
     }
 
     override fun setOnClick() {
