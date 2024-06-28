@@ -1,25 +1,27 @@
 package com.example.nonameapp.ui
 
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentSignUpBinding
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
+    private val myViewModel: BaseViewModel by viewModels()
     override val viewModel: BaseViewModel
-        get() = TODO("Not yet implemented")
+        get() = myViewModel
 
     override fun initData() {
-        TODO("Not yet implemented")
+        
     }
 
     override fun bindData() {
-        TODO("Not yet implemented")
+        
     }
 
     override fun observeData() {
-        TODO("Not yet implemented")
+        
     }
 
     override fun setOnClick() {
