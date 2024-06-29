@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseActivity<VB : ViewBinding>(
+abstract class BaseActivity<VB : ViewBinding, LoginFragment>(
     private val bindingInflater: (LayoutInflater) -> VB
 ) : AppCompatActivity() {
 

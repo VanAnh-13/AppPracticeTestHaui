@@ -52,6 +52,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Material
+    implementation("com.google.android.material:material:1.5.0")
+
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -78,4 +81,7 @@ dependencies {
 
     // Logging
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    //Material Components
+    implementation ("com.google.android.material:material:1.6.0")
 }
