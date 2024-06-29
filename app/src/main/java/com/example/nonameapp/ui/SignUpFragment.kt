@@ -1,10 +1,14 @@
 package com.example.nonameapp.ui
 
+import android.annotation.SuppressLint
+import android.text.InputType
+import android.view.MotionEvent
 import android.widget.Toast
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentSignUpBinding
+import com.google.android.material.textfield.TextInputEditText
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
     override val viewModel: BaseViewModel
@@ -33,6 +37,47 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
+
+            // Handle password visibility toggle
+            setUpPasswordVisibilityToggle()
+        }
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setUpPasswordVisibilityToggle() {
+        val togglePasswordVisibility = { editText: TextInputEditText ->
+            // Check the display status of the password return true if the password is visible,  false if it is hidden.
+            val isPasswordVisible = editText.inputType and InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            if (isPasswordVisible) {
+                // Hide password
+                editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off, 0)
+            } else {
+                // Show password
+                editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility, 0)
+            }
+            editText.setSelection(editText.text?.length ?: 0) // Move cursor to the end of the text
+        }
+        binding.edtPassword.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableRight = 2
+                if (event.rawX >= (binding.edtPassword.right - binding.edtPassword.compoundDrawables[drawableRight].bounds.width())) {
+                    togglePasswordVisibility(binding.edtPassword)
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+
+        binding.edtConfirmPassword.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableRight = 2
+                if (event.rawX >= (binding.edtConfirmPassword.right - binding.edtConfirmPassword.compoundDrawables[drawableRight].bounds.width())) {
+                    togglePasswordVisibility(binding.edtConfirmPassword)
+                    return@setOnTouchListener true
+                }
+            }
+            false
         }
     }
 

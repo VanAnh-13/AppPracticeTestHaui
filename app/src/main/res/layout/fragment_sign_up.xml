@@ -89,7 +89,8 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:singleLine="true"
-            android:drawableTint="@color/black" />
+            android:drawableTint="@color/black"
+            android:maxLength="255"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,6 +120,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:singleLine="true"
+            android:maxLength="255"
             android:drawableTint="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
