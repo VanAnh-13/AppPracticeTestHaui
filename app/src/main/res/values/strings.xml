@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">No Name App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="success">Lấy mã OTP</string>
+    <string name="this_is_logo_app">THis is logo app</string>
+    <string name="enter_email_address">Nhập địa chỉ email:</string>
+    <string name="nh_p_m_otp">Nhập mã OTP:</string>
+    <string name="thay_m_t_kh_u">Thay mật khẩu</string>
+    <string name="nh_p_m_t_kh_u_m_i">Nhập mật khẩu mới:</string>
+    <string name="nh_p_l_i_m_t_kh_u_m_i">Nhập lại mật khẩu mới:</string>
+    <string name="ho_n_th_nh">Hoàn thành</string>
 </resources>
