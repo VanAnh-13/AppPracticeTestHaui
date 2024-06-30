@@ -4,26 +4,31 @@ import android.annotation.SuppressLint
 import android.text.InputType
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
+import com.example.nonameapp.data.source.network.ApiHelper
+import com.example.nonameapp.data.source.network.ApiResponse
+import com.example.nonameapp.data.source.network.ApiService
 import com.example.nonameapp.databinding.FragmentSignUpBinding
 import com.google.android.material.textfield.TextInputEditText
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
+class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
+    private val myViewModel: BaseViewModel by viewModels()
     override val viewModel: BaseViewModel
-        get() = TODO("Not yet implemented")
+        get() = myViewModel
 
     override fun initData() {
-        TODO("Not yet implemented")
     }
 
     override fun bindData() {
-        TODO("Not yet implemented")
     }
 
     override fun observeData() {
-        TODO("Not yet implemented")
     }
 
     override fun setOnClick() {
@@ -37,10 +42,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
-
-            // Handle password visibility toggle
-            setUpPasswordVisibilityToggle()
         }
+        // Handle password visibility toggle
+        setUpPasswordVisibilityToggle()
     }
     @SuppressLint("ClickableViewAccessibility")
     private fun setUpPasswordVisibilityToggle() {
@@ -114,31 +118,40 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
     }
 
     private fun signUp(name: String, email: String, password: String) {
-        // Gọi API đăng ký từ backend thông qua Retrofit
-//        val call = apiService.signUp(name, email, password)
-//        call.enqueue(object : Callback<Void> {
-//            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                if (response.isSuccessful) {
-//                    // Đăng ký thành công, bạn có thể thực hiện các hành động tiếp theo như chuyển hướng đến màn hình chính
-//                    Toast.makeText(requireContext(), "Sign up successful", Toast.LENGTH_SHORT).show()
-//                    navigateToMainScreen()
-//                } else {
-//                    // Đăng ký thất bại, xử lý lỗi tại đây (ví dụ: hiển thị thông báo lỗi từ server)
-//                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
-//                    Toast.makeText(requireContext(), "Sign up failed: $errorMessage", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Void>, t: Throwable) {
-//                // Xử lý khi gọi API thất bại (ví dụ: hiển thị thông báo lỗi mạng)
-//                Toast.makeText(requireContext(), "Sign up failed: ${t.message}", Toast.LENGTH_SHORT).show()
-//            }
-//        })
+        val body = mapOf(
+            "name" to name,
+            "email" to email,
+            "password" to password
+        )
+
+        val apiService = ApiHelper.getInstance().create(ApiService::class.java)
+        apiService.register(body).enqueue(object : Callback<ApiResponse<Any>> {
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireActivity(), "Registration Successful", Toast.LENGTH_LONG)
+                        .show()
+                }
+                else{
+                    Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+
+            override fun onFailure(p0: Call<ApiResponse<Any>>, p1: Throwable) {
+                Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
+                    .show()
+            }
+
+        })
     }
 
-    private fun navigateToMainScreen() {
-//         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//         transaction.replace(R.id.fragment_container, MainFragment())
+//    private fun navigateToHomeScreen() {
+//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//         transaction.replace(R.id.fragmentContainer, )
+//         transaction.addToBackStack()
 //         transaction.commit()
-    }
+//    }
 }
