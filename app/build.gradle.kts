@@ -52,6 +52,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Material
+    implementation("com.google.android.material:material:1.5.0")
+
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -71,6 +74,9 @@ dependencies {
     // Room component
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    // Gson converter
+    implementation ("com.google.code.gson:gson:2.11.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
