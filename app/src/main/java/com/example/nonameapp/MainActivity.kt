@@ -10,7 +10,7 @@ import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityMainBinding
 import com.example.nonameapp.ui.LoginFragment
 
-class MainActivity : BaseActivity<ActivityMainBinding, Any?>(ActivityMainBinding::inflate) {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
     override fun initData() {
         supportFragmentManager.commit {
             replace(binding.fragmentContainer.id, LoginFragment())
