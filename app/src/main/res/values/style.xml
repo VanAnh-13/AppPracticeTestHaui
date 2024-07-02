@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+    <style name="buttonStyle" parent="Widget.AppCompat.Button">
         <!-- Các thuộc tính của button -->
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="buttonStyleSubjects" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_background_subjects_selector</item>
     </style>
 </resources>

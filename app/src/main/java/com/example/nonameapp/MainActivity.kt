@@ -7,6 +7,7 @@ import com.example.nonameapp.ui.SignUpFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
     override fun initData() {
+
         supportFragmentManager.commit {
             replace(binding.fragmentContainer.id, SignUpFragment())
             setReorderingAllowed(true)
