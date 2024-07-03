@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.example.nonameapp.HomeActivity
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
