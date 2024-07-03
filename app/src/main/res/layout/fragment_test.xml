@@ -6,11 +6,16 @@
     android:orientation="vertical"
     tools:context=".ui.TestFragment">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTests"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:itemCount="3"
         tools:listitem="@layout/item_test" />
+
 
 </LinearLayout>

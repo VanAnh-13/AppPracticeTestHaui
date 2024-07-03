@@ -20,7 +20,7 @@ class TestFragment() :
     override fun initData() {
         val testData = mutableListOf(
             Test("Test 1", 50, 50),
-            Test("Test 2", 70, 70),
+            Test("Test 2", 100, 100),
         )
 
         testAdapter = TestAdapter { test ->
