@@ -1,15 +1,23 @@
 package com.example.nonameapp.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
+import android.widget.LinearLayout
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityMainBinding
 
+private const val TAG = "MainActivity"
+
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+    lateinit var linerLayout: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handleEvent()
+
+        linerLayout = binding.linearLayout
     }
 
     private fun handleEvent() {

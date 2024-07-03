@@ -3,12 +3,14 @@ package com.example.nonameapp.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nonameapp.activity.MainActivity
 import com.example.nonameapp.adapter.SubjectAdapter
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val adapter by lazy { SubjectAdapter() }
+    private val mainActivity by lazy { activity as MainActivity }
+    private val adapter by lazy { SubjectAdapter(mainActivity.linerLayout) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,5 +46,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun setOnClick() {
 
     }
-
 }
