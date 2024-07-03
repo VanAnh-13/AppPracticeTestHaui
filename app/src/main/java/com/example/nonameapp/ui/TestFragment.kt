@@ -1,25 +1,31 @@
 package com.example.nonameapp.ui
-
-import android.os.Bundle
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nonameapp.adapter.TestAdapter
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentTestBinding
+import com.example.nonameapp.model.Test
 
 class TestFragment(override val viewModel: BaseViewModel) :
     BaseFragment<FragmentTestBinding>(FragmentTestBinding::inflate) {
 
-    private lateinit var progressBar: ProgressBar
-    private lateinit var tvPercentage: TextView
-    private var correctAnswers = 0
-    private val totalQuestions = 10
-
+    private lateinit var testAdapter: TestAdapter
     override fun initData() {
+        val testData = mutableListOf(
+            Test("Test 1", 50, 50),
+            Test("Test 2", 70, 70),
+        )
+
+        testAdapter = TestAdapter { test ->
+            // Handle item click if needed
+        }
+
+        testAdapter.setData(testData)
     }
 
     override fun bindData() {
+        binding.recyclerViewTests.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewTests.adapter = testAdapter
     }
 
     override fun observeData() {
@@ -28,31 +34,4 @@ class TestFragment(override val viewModel: BaseViewModel) :
     override fun setOnClick() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        progressBar = binding.progressBar
-        tvPercentage = binding.tvPercentage
-
-        // Initialize progress
-        updateProgress()
-
-        // For demonstration purposes, simulate correct answers
-        binding.root.postDelayed({
-            onCorrectAnswer()
-        }, 1000)
-    }
-    private fun updateProgress() {
-        val progress = (correctAnswers * 100) / totalQuestions
-        progressBar.progress = progress
-        tvPercentage.text = "$progress%"
-    }
-
-    // Call this method when the user answers a question correctly
-    private fun onCorrectAnswer() {
-        if (correctAnswers < totalQuestions) {
-            correctAnswers++
-            updateProgress()
-        }
-    }
 }

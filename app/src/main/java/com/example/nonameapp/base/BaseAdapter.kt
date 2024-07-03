@@ -25,12 +25,17 @@ abstract class BaseAdapter<T, VB : ViewBinding>(
 
     abstract fun onItemClick(binding: VB, item: T, position: Int)
 
-    fun setData(position: Int, data: T) {
-        if (position >= dataList.size) {
-            return
-        }
-        dataList[position] = data
-        notifyItemChanged(position)
+//    fun setData(position: Int, data: T) {
+//        if (position >= dataList.size) {
+//            return
+//        }
+//        dataList[position] = data
+//        notifyItemChanged(position)
+//    }
+    fun setData(data: List<T>) {
+        dataList.clear()
+        dataList.addAll(data)
+        notifyDataSetChanged()
     }
 
     fun removeData(position: Int) {
