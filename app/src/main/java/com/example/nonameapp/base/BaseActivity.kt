@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.example.nonameapp.ui.SignUpFragment
+import com.example.nonameapp.ui.TestFragment
 
 abstract class BaseActivity<VB : ViewBinding>(
     private val bindingInflater: (LayoutInflater) -> VB

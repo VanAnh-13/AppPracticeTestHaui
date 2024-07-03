@@ -44,10 +44,11 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
+            navigateToHomeScreen()
         }
         // Handle password visibility toggle
         setUpPasswordVisibilityToggle()
-        navigateToHomeScreen()
+
     }
     @SuppressLint("ClickableViewAccessibility")
     private fun setUpPasswordVisibilityToggle() {
