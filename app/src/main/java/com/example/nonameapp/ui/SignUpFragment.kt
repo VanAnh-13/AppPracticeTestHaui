@@ -1,7 +1,9 @@
 package com.example.nonameapp.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.text.InputType
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -119,7 +121,7 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
 
     private fun signUp(name: String, email: String, password: String) {
         val body = mapOf(
-            "name" to name,
+            "fullname" to name,
             "email" to email,
             "password" to password
         )
@@ -133,8 +135,10 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
                 if (response.isSuccessful) {
                     Toast.makeText(requireActivity(), "Registration Successful", Toast.LENGTH_LONG)
                         .show()
+                    navigateToHomeScreen()
                 }
                 else{
+                    Log.e("SignUpFragment", "Registration failed with error: ${response.errorBody()?.string()}")
                     Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
                         .show()
                 }
@@ -148,10 +152,9 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
         })
     }
 
-//    private fun navigateToHomeScreen() {
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//         transaction.replace(R.id.fragmentContainer, )
-//         transaction.addToBackStack()
-//         transaction.commit()
-//    }
+    private fun navigateToHomeScreen() {
+        val intent = Intent(requireActivity(), HomeActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
 }
