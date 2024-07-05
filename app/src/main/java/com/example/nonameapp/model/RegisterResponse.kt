@@ -1,4 +1,7 @@
-package com.example.nonameapp.model
+import com.example.nonameapp.model.Data
 
-class RegisterResponse {
-}
+data class RegisterResponse(
+    val message: String,
+    val code: Int,
+    val data: List<Data>,
+)
