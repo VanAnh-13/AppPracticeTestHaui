@@ -1,34 +1,25 @@
 package com.example.nonameapp.ui
 
-import android.annotation.SuppressLint
-import android.text.InputType
-import android.view.MotionEvent
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
-import com.example.nonameapp.data.source.network.ApiHelper
-import com.example.nonameapp.data.source.network.ApiResponse
-import com.example.nonameapp.data.source.network.ApiService
 import com.example.nonameapp.databinding.FragmentSignUpBinding
-import com.google.android.material.textfield.TextInputEditText
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
-    private val myViewModel: BaseViewModel by viewModels()
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
     override val viewModel: BaseViewModel
-        get() = myViewModel
+        get() = TODO("Not yet implemented")
 
     override fun initData() {
+        TODO("Not yet implemented")
     }
 
     override fun bindData() {
+        TODO("Not yet implemented")
     }
 
     override fun observeData() {
+        TODO("Not yet implemented")
     }
 
     override fun setOnClick() {
@@ -42,46 +33,6 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
-        }
-        // Handle password visibility toggle
-        setUpPasswordVisibilityToggle()
-    }
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setUpPasswordVisibilityToggle() {
-        val togglePasswordVisibility = { editText: TextInputEditText ->
-            // Check the display status of the password return true if the password is visible,  false if it is hidden.
-            val isPasswordVisible = editText.inputType and InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            if (isPasswordVisible) {
-                // Hide password
-                editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off, 0)
-            } else {
-                // Show password
-                editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility, 0)
-            }
-            editText.setSelection(editText.text?.length ?: 0) // Move cursor to the end of the text
-        }
-        binding.edtPassword.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                val drawableRight = 2
-                if (event.rawX >= (binding.edtPassword.right - binding.edtPassword.compoundDrawables[drawableRight].bounds.width())) {
-                    togglePasswordVisibility(binding.edtPassword)
-                    return@setOnTouchListener true
-                }
-            }
-            false
-        }
-
-        binding.edtConfirmPassword.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                val drawableRight = 2
-                if (event.rawX >= (binding.edtConfirmPassword.right - binding.edtConfirmPassword.compoundDrawables[drawableRight].bounds.width())) {
-                    togglePasswordVisibility(binding.edtConfirmPassword)
-                    return@setOnTouchListener true
-                }
-            }
-            false
         }
     }
 
@@ -118,40 +69,31 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
     }
 
     private fun signUp(name: String, email: String, password: String) {
-        val body = mapOf(
-            "name" to name,
-            "email" to email,
-            "password" to password
-        )
-
-        val apiService = ApiHelper.getInstance().create(ApiService::class.java)
-        apiService.register(body).enqueue(object : Callback<ApiResponse<Any>> {
-            override fun onResponse(
-                call: Call<ApiResponse<Any>>,
-                response: Response<ApiResponse<Any>>
-            ) {
-                if (response.isSuccessful) {
-                    Toast.makeText(requireActivity(), "Registration Successful", Toast.LENGTH_LONG)
-                        .show()
-                }
-                else{
-                    Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-
-            override fun onFailure(p0: Call<ApiResponse<Any>>, p1: Throwable) {
-                Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
-                    .show()
-            }
-
-        })
+        // Gọi API đăng ký từ backend thông qua Retrofit
+//        val call = apiService.signUp(name, email, password)
+//        call.enqueue(object : Callback<Void> {
+//            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+//                if (response.isSuccessful) {
+//                    // Đăng ký thành công, bạn có thể thực hiện các hành động tiếp theo như chuyển hướng đến màn hình chính
+//                    Toast.makeText(requireContext(), "Sign up successful", Toast.LENGTH_SHORT).show()
+//                    navigateToMainScreen()
+//                } else {
+//                    // Đăng ký thất bại, xử lý lỗi tại đây (ví dụ: hiển thị thông báo lỗi từ server)
+//                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+//                    Toast.makeText(requireContext(), "Sign up failed: $errorMessage", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Void>, t: Throwable) {
+//                // Xử lý khi gọi API thất bại (ví dụ: hiển thị thông báo lỗi mạng)
+//                Toast.makeText(requireContext(), "Sign up failed: ${t.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 
-//    private fun navigateToHomeScreen() {
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//         transaction.replace(R.id.fragmentContainer, )
-//         transaction.addToBackStack()
+    private fun navigateToMainScreen() {
+//         val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//         transaction.replace(R.id.fragment_container, MainFragment())
 //         transaction.commit()
-//    }
+    }
 }
