@@ -25,5 +25,7 @@ data class User(
     @SerializedName("createdAt")
     val createdAt: Date,
     @SerializedName("updatedAt")
-    val updatedAt: Date
+    val updatedAt: Date,
+    @SerializedName("password")
+    val password: String
 )

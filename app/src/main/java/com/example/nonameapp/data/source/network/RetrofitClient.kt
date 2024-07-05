@@ -11,8 +11,8 @@ object RetrofitClient {
     @Volatile
     private var INSTANCE: Retrofit? = null
 
-    val apiService: APIService by lazy {
-        getInstance().create(APIService::class.java)
+    val apiService: ApiService by lazy {
+        getInstance().create(ApiService::class.java)
     }
     fun  getInstance(): Retrofit = INSTANCE ?: synchronized(this){
         val instant = retrofitBuilder()
