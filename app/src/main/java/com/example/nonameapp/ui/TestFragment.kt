@@ -48,7 +48,6 @@ class TestFragment() :
         val questionsFragment = QuestionsFragment.newInstance(test)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, questionsFragment)
-            .addToBackStack(null)
             .commit()
     }
 

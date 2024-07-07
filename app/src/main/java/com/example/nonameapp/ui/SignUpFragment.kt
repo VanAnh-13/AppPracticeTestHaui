@@ -138,7 +138,7 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
                 if (response.isSuccessful) {
                     Toast.makeText(requireActivity(), "Registration Successful", Toast.LENGTH_LONG)
                         .show()
-//                    navigateToHomeScreen()
+                    navigateToHomeScreen()
                 }
                 else{
                     Log.e("SignUpFragment", "Registration failed with error: ${response.errorBody()?.string()}")
