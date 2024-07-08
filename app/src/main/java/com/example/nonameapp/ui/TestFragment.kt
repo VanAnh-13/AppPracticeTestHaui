@@ -12,11 +12,8 @@ import com.example.nonameapp.model.Test
 class TestFragment() :
     BaseFragment<FragmentTestBinding>(FragmentTestBinding::inflate) {
 
-    private val myViewModel: BaseViewModel by viewModels()
-
     private lateinit var testAdapter: TestAdapter
-    override val viewModel: BaseViewModel
-        get() = myViewModel
+
     override fun initData() {
         val testData = mutableListOf(
             Test("Test 1", 50, 50),
@@ -30,12 +27,12 @@ class TestFragment() :
             navigateToQuestionsFragment(test)
         }
 
-        testAdapter.setData(testData)
+//        testAdapter.setData(testData)
     }
 
     override fun bindData() {
-        binding.recyclerViewTests.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerViewTests.adapter = testAdapter
+//        binding.recyclerViewTests.layoutManager = LinearLayoutManager(requireContext())
+//        binding.recyclerViewTests.adapter = testAdapter
     }
 
     override fun observeData() {
@@ -47,8 +44,9 @@ class TestFragment() :
         // Navigate to QuestionsFragment and pass data if necessary
         val questionsFragment = QuestionsFragment.newInstance(test)
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, questionsFragment)
+            .replace(R.id.fragmentMainfunction, questionsFragment)
             .commit()
     }
 
 }
+

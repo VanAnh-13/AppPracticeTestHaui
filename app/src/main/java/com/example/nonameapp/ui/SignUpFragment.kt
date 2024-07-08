@@ -1,29 +1,23 @@
 package com.example.nonameapp.ui
 
+import RegisterResponse
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.InputType
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
-import androidx.fragment.app.viewModels
-import com.example.nonameapp.HomeActivity
 import com.example.nonameapp.R
+import com.example.nonameapp.activity.MainActivity
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.base.BaseViewModel
-import com.example.nonameapp.data.source.network.ApiHelper
-import com.example.nonameapp.data.source.network.ApiResponse
-import com.example.nonameapp.data.source.network.ApiService
+import com.example.nonameapp.data.source.network.RetrofitClient
 import com.example.nonameapp.databinding.FragmentSignUpBinding
+import com.example.nonameapp.request.RegisterRequest
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
-    private val myViewModel: BaseViewModel by viewModels()
-    override val viewModel: BaseViewModel
-        get() = myViewModel
 
     override fun initData() {
     }
@@ -123,41 +117,38 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
     }
 
     private fun signUp(name: String, email: String, password: String) {
-        val body = mapOf(
-            "fullname" to name,
-            "email" to email,
-            "password" to password
+        val call = RetrofitClient.apiService.register(
+            registerRequest = RegisterRequest(
+                email,
+                password,
+                password
+            )
         )
-
-        val apiService = ApiHelper.getInstance().create(ApiService::class.java)
-        apiService.register(body).enqueue(object : Callback<ApiResponse<Any>> {
+        call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
-                call: Call<ApiResponse<Any>>,
-                response: Response<ApiResponse<Any>>
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
             ) {
                 if (response.isSuccessful) {
-                    Toast.makeText(requireActivity(), "Registration Successful", Toast.LENGTH_LONG)
-                        .show()
-                    navigateToHomeScreen()
+                    Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    Log.e("SignUpFragment", "Registration failed with error: ${response.errorBody()?.string()}")
-                    Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(requireContext(), "Sign up failed", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(p0: Call<ApiResponse<Any>>, p1: Throwable) {
-                Toast.makeText(requireActivity(), "Registration failed", Toast.LENGTH_LONG)
+            override fun onFailure(p0: Call<RegisterResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Login failed: ${t.message}", Toast.LENGTH_SHORT)
                     .show()
             }
-
         })
     }
 
     private fun navigateToHomeScreen() {
-        val intent = Intent(requireActivity(), HomeActivity::class.java)
+        val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }
 }
+
+

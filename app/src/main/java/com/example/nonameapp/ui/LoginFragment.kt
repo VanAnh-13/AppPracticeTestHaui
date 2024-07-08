@@ -1,23 +1,20 @@
 package com.example.nonameapp.ui
 
+import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.base.BaseViewModel
-import com.example.nonameapp.databinding.FragmentLoginBinding
-import retrofit2.Callback
 import com.example.nonameapp.data.source.network.RetrofitClient
+import com.example.nonameapp.databinding.FragmentLoginBinding
 import com.example.nonameapp.model.LoginResponse
-import retrofit2.Call
-import retrofit2.Response
-import android.content.Context
 import com.example.nonameapp.request.LoginRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    private val myViewModel: BaseViewModel by viewModels()
-    override val viewModel: BaseViewModel
-        get() = myViewModel
 
     override fun initData() {
     }
@@ -49,7 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.registerTextView.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainer, SignUpFragment())
+            transaction.replace(R.id.fragmentLoginRegisterContainer, SignUpFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }

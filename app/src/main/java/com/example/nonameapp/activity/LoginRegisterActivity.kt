@@ -1,15 +1,15 @@
-package com.example.nonameapp
+package com.example.nonameapp.activity
 
 import androidx.fragment.app.commit
 import com.example.nonameapp.base.BaseActivity
-import com.example.nonameapp.databinding.ActivityMainBinding
+import com.example.nonameapp.databinding.ActivityLoginRegisterBinding
 import com.example.nonameapp.ui.LoginFragment
-import com.example.nonameapp.ui.SignUpFragment
 
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+class LoginRegisterActivity :
+    BaseActivity<ActivityLoginRegisterBinding>(ActivityLoginRegisterBinding::inflate) {
     override fun initData() {
         supportFragmentManager.commit {
-            replace(binding.fragmentContainer.id, LoginFragment())
+            replace(binding.fragmentLoginRegisterContainer.id, LoginFragment())
             setReorderingAllowed(true)
         }
     }
@@ -19,4 +19,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun setOnClick() {
     }
+
 }

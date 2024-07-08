@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             "Tư tưởng Hồ Chí Minh"
         )
 
-        adapter.setList(listSubject)
+//        adapter.setList(listSubject)
         binding.recyclerviewSubject.adapter = adapter
         binding.recyclerviewSubject.layoutManager = LinearLayoutManager(requireContext())
     }

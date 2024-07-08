@@ -10,9 +10,6 @@ import com.example.nonameapp.model.Test
 
 class QuestionsFragment() :
     BaseFragment<FragmentQuestionBinding>(FragmentQuestionBinding::inflate) {
-    private val myViewModel: BaseViewModel by viewModels()
-    override val viewModel: BaseViewModel
-        get() = myViewModel
     override fun initData() {
     }
 
