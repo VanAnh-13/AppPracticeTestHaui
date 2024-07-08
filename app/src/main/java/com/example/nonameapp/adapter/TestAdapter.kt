@@ -10,6 +10,8 @@ class TestAdapter(
 ) : BaseAdapter<Test, ItemTestBinding>(
     { inflater: LayoutInflater -> ItemTestBinding.inflate(inflater) }
 ) {
+
+
     override fun bindData(binding: ItemTestBinding, item: Test, position: Int) {
         binding.tvTestName.text = item.name
         binding.progressBar.progress = item.progress

@@ -5,11 +5,14 @@ import android.widget.ImageView
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityMainBinding
+import com.example.nonameapp.fragment.HomeFragment
+import com.example.nonameapp.ui.TestFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handleEvent()
+        showDefaultFragment()
     }
 
     private fun handleEvent() {
@@ -22,11 +25,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.btnHome.setOnClickListener {
             selectedIcon = if (selectedIcon == "home") null else "home"
             updateIcons(selectedIcon = selectedIcon)
+            if (selectedIcon == "home") {
+                showHomeFragment()
+            }
         }
 
         binding.btnDocument.setOnClickListener {
             selectedIcon = if (selectedIcon == "document") null else "document"
             updateIcons(selectedIcon = selectedIcon)
+            if(selectedIcon == "document"){
+                showTestFragment()
+            }
         }
 
         binding.btnSearch.setOnClickListener {
@@ -71,5 +80,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun setOnClick() {
     }
+
+    private fun showDefaultFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentMainfunction, HomeFragment())
+        fragmentTransaction.commit()
+    }
+
+    private fun showHomeFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentMainfunction, HomeFragment())
+        fragmentTransaction.commit()
+    }
+
+    private fun showTestFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentMainfunction, TestFragment())
+        fragmentTransaction.commit()
+    }
+
 
 }

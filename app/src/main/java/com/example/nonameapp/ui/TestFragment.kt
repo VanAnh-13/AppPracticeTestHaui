@@ -14,6 +14,7 @@ class TestFragment() :
 
     private lateinit var testAdapter: TestAdapter
 
+
     override fun initData() {
         val testData = mutableListOf(
             Test("Test 1", 50, 50),
@@ -27,12 +28,12 @@ class TestFragment() :
             navigateToQuestionsFragment(test)
         }
 
-//        testAdapter.setData(testData)
+        testAdapter.setData(testData)
     }
 
     override fun bindData() {
-//        binding.recyclerViewTests.layoutManager = LinearLayoutManager(requireContext())
-//        binding.recyclerViewTests.adapter = testAdapter
+        binding.recyclerViewTest.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewTest.adapter = testAdapter
     }
 
     override fun observeData() {

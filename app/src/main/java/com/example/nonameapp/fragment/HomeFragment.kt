@@ -16,9 +16,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         bindData()
     }
 
-//    override val viewModel: BaseViewModel
-//        get() = TODO("Not yet implemented")
-
     override fun initData() {
 
     }
