@@ -5,4 +5,5 @@
     <color name="blue">#006FFD</color>
     <color name="light_blue">#EAF2FF</color>
     <color name="gray">@android:color/darker_gray</color>
+    <color name="red">#E53935</color>
 </resources>

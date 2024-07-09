@@ -1,6 +1,7 @@
 package com.example.nonameapp.activity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
@@ -98,6 +99,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         fragmentTransaction.replace(R.id.fragmentMainfunction, TestFragment())
         fragmentTransaction.commit()
     }
-
-
 }

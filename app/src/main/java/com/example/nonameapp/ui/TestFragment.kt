@@ -1,11 +1,9 @@
 package com.example.nonameapp.ui
 
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nonameapp.R
 import com.example.nonameapp.adapter.TestAdapter
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentTestBinding
 import com.example.nonameapp.model.Test
 
