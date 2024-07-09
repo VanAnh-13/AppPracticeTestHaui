@@ -1,7 +1,7 @@
-import com.example.nonameapp.model.Data
+import com.example.nonameapp.model.DataLogin
 
 data class RegisterResponse(
     val message: String,
     val code: Int,
-    val data: List<Data>,
+    val data: List<DataLogin>,
 )

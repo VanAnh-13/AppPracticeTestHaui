@@ -1,6 +1,6 @@
 package com.example.nonameapp.model
 
-data class Data(
+data class DataLogin(
     val user: User,
     val accessToken: String
 )
