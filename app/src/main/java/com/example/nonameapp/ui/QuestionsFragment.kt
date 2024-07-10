@@ -27,9 +27,9 @@ class QuestionsFragment() :
 
     override fun setOnClick() {
         binding.icArrowBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            navigateToTestFragment()
         }
-        binding.icArrowBack.setOnClickListener {
+        binding.textDone.setOnClickListener {
             navigateToResultFragment()
         }
     }
@@ -58,5 +58,12 @@ class QuestionsFragment() :
                 .addToBackStack(null)  // Nếu muốn thêm fragment vào back stack
                 .commit()
         }
+    }
+
+    private fun navigateToTestFragment() {
+        val testFragment = TestFragment()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentMainfunction, testFragment)
+            .commit()
     }
 }
