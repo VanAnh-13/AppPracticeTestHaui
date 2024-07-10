@@ -1,6 +1,7 @@
 package com.example.nonameapp.ui
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.nonameapp.R
@@ -13,6 +14,20 @@ import com.example.nonameapp.model.Test
 class QuestionsFragment() :
     BaseFragment<FragmentQuestionBinding>(FragmentQuestionBinding::inflate) {
 
+    private var countDownTimer: CountDownTimer? = null
+    private var timeElapsedMillis: Long = 0
+    private var isTimerRunning = false
+//    private val testViewModel: TestViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        startTimer()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopTimer()
+    }
     override fun initData() {
     }
 
@@ -21,20 +36,50 @@ class QuestionsFragment() :
             navigateToResultFragment()
         }
     }
+    private fun startTimer() {
+        isTimerRunning = true
+        countDownTimer = object : CountDownTimer(MAX_TIME_MILLIS, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeElapsedMillis = MAX_TIME_MILLIS - millisUntilFinished
+                updateClockText()
+            }
+
+            override fun onFinish() {
+                timeElapsedMillis = MAX_TIME_MILLIS
+                updateClockText()
+                stopTimer()
+            }
+        }.start()
+    }
+
+    private fun stopTimer() {
+        isTimerRunning = false
+        countDownTimer?.cancel()
+    }
+    private fun updateClockText() {
+        val seconds = (timeElapsedMillis / 1000) % 60
+        val minutes = (timeElapsedMillis / (1000 * 60)) % 60
+        val hours = (timeElapsedMillis / (1000 * 60 * 60)) % 24
+        binding.tvClock.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
 
     override fun observeData() {
     }
 
     override fun setOnClick() {
-        binding.icArrowBack.setOnClickListener {
-            navigateToTestFragment()
-        }
         binding.textDone.setOnClickListener {
+            stopTimer()
             navigateToResultFragment()
+        }
+
+        binding.icArrowBack.setOnClickListener {
+            stopTimer()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
     companion object {
         private const val ARG_TEST = "arg_test"
+        private const val MAX_TIME_MILLIS = 30 * 60 * 1000L // 30 minutes
 
         @JvmStatic
         fun newInstance(test: Test): QuestionsFragment {
