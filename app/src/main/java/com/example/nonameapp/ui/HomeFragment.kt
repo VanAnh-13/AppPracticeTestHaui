@@ -1,7 +1,10 @@
-package com.example.nonameapp.fragment
+package com.example.nonameapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nonameapp.activity.MainActivity
 import com.example.nonameapp.adapter.SubjectAdapter
@@ -18,32 +21,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         bindData()
     }
 
-//    override val viewModel: BaseViewModel
-//        get() = TODO("Not yet implemented")
+    override val viewModel: HomeFragmentModel
+        get() = ViewModelProvider(this)[HomeFragmentModel::class.java]
 
     override fun initData() {
-
+        try {
+            viewModel.getSubject(accessToken = getToken(context = requireContext()))
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     override fun bindData() {
-        val listSubject = mutableListOf(
-            "Chủ nghĩa xã hội khoa học",
-            "Kinh tế chính trị Mác-Lênin",
-            "Lịch sử Đảng Cộng sản Việt Nam",
-            "Triết học Mác-Lênin",
-            "Tư tưởng Hồ Chí Minh"
-        )
-
-        adapter.setList(listSubject)
         binding.recyclerviewSubject.adapter = adapter
         binding.recyclerviewSubject.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.listSubject.value?.subjects?.let {
+            adapter.setSubjectList(it)
+        }
     }
 
     override fun observeData() {
-
+        viewModel.listSubject.observe(this) {
+            bindData()
+        }
     }
 
     override fun setOnClick() {
 
     }
+
+    private fun getToken(
+        context: Context,
+        key: String = "access_token",
+        defaultValue: String = "",
+    ) = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        .getString(key, defaultValue) ?: defaultValue
+
 }

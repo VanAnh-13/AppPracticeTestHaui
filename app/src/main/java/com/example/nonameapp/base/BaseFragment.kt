@@ -17,7 +17,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     protected val binding: VB
         get() = _binding as VB
 
- //   protected abstract val viewModel: BaseViewModel
+    protected abstract val viewModel: BaseViewModel
 
     protected val loadingDialog by lazy { context?.let { Dialog(it) } }
 
@@ -38,15 +38,15 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel.loading.observe(viewLifecycleOwner) {
-//            if (it) {
-//                if (loadingDialog?.isShowing == false) {
-//
-//                }
-//            } else {
-//                loadingDialog?.dismiss()
-//            }
-//        }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) {
+                if (loadingDialog?.isShowing == false) {
+
+                }
+            } else {
+                loadingDialog?.dismiss()
+            }
+        }
 
         bindData()
         observeData()
