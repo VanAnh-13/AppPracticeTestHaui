@@ -7,7 +7,7 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseAdapter<T, VB : ViewBinding>(
     private val bindingInflater: (LayoutInflater) -> VB,
-    private var dataList: MutableList<T> = mutableListOf()
+    protected var dataList: MutableList<T> = mutableListOf()
 ) : Adapter<BaseViewHolder<VB>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
         val binding = bindingInflater(LayoutInflater.from(parent.context))
@@ -24,10 +24,6 @@ abstract class BaseAdapter<T, VB : ViewBinding>(
     abstract fun bindData(binding: VB, item: T, position: Int)
 
     abstract fun onItemClick(binding: VB, item: T, position: Int)
-
-    fun setList(newList: MutableList<T>) {
-        this.dataList = newList
-    }
 
     fun setData(position: Int, data: T) {
         if (position >= dataList.size) {

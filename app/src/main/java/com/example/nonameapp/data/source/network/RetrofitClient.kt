@@ -8,11 +8,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-
     @Volatile
     private var INSTANCE: Retrofit? = null
 
-    fun  getInstance(): Retrofit = INSTANCE ?: synchronized(this){
+    val apiService: ApiService by lazy {
+        getInstance().create(ApiService::class.java)
+    }
+
+    private fun  getInstance(): Retrofit = INSTANCE ?: synchronized(this){
         val instant = retrofitBuilder()
         INSTANCE = instant
         instant
