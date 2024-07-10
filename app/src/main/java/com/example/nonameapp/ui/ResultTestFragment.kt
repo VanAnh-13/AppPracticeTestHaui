@@ -1,15 +1,15 @@
 package com.example.nonameapp.ui
 
+import android.content.res.Resources
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentResultTestBinding
+import com.example.nonameapp.model.Test
 
 class ResultTestFragment : BaseFragment<FragmentResultTestBinding>(FragmentResultTestBinding::inflate) {
     private val totalQuestions = 20
@@ -26,7 +26,12 @@ class ResultTestFragment : BaseFragment<FragmentResultTestBinding>(FragmentResul
         // Thêm các TextView hình tròn vào GridLayout
         for (i in 1..totalQuestions) {
             val textView = TextView(context).apply {
-                layoutParams = ViewGroup.LayoutParams(100, 100)
+                layoutParams = GridLayout.LayoutParams().apply {
+                    width = 50 // Kích thước của hình tròn
+                    height = 100
+                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                    setMargins(3.dpToPx(), 3.dpToPx(), 3.dpToPx(), 3.dpToPx()) // Cách nhau 5dp, sử dụng extension function để chuyển đổi dp sang px
+                }
                 text = i.toString()
                 textAlignment = TextView.TEXT_ALIGNMENT_CENTER
                 setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
@@ -50,14 +55,27 @@ class ResultTestFragment : BaseFragment<FragmentResultTestBinding>(FragmentResul
     }
 
     override fun observeData() {
-        // Bạn có thể thêm logic quan sát dữ liệu ở đây nếu cần
     }
 
     override fun setOnClick() {
-        // Thêm sự kiện click cho nút back
         binding.icArrowBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
 
+    companion object {
+        private const val ARG_TEST = "arg_test"
+
+        @JvmStatic
+        fun newInstance(test: Test): ResultTestFragment {
+            val fragment = ResultTestFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_TEST, test)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
 }
+fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+
