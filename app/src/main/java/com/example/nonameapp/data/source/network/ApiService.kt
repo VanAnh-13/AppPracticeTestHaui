@@ -4,6 +4,7 @@ import com.example.nonameapp.response.RegisterResponse
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.request.LoginRequest
+import com.example.nonameapp.request.QuestionRequest
 import com.example.nonameapp.request.RegisterRequest
 import com.example.nonameapp.response.QuestionsResponse
 import retrofit2.Call
@@ -22,5 +23,5 @@ interface ApiService {
     fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
 
     @GET("/api/v1/questions")
-    suspend fun getQuestionsBySubjectId(@Header("Authorization") accessToken: String, @Path("_id") subjectId: String): ApiResponse<QuestionsResponse>
+    suspend fun getQuestionsBySubjectId(@Header("Authorization") accessToken: String, @Header("_id") subjectId: String): ApiResponse<QuestionsResponse>
 }

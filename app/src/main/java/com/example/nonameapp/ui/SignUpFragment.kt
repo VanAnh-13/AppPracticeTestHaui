@@ -1,6 +1,6 @@
 package com.example.nonameapp.ui
 
-import RegisterResponse
+import com.example.nonameapp.response.RegisterResponse
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.InputType
