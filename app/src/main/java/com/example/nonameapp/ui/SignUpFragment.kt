@@ -6,10 +6,12 @@ import android.content.Intent
 import android.text.InputType
 import android.view.MotionEvent
 import android.widget.Toast
-import com.example.nonameapp.R
+import androidx.fragment.app.viewModels
 import com.example.nonameapp.activity.MainActivity
+import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.data.source.network.RetrofitClient
+import com.example.nonameapp.base.BaseViewModel
+import com.example.nonameapp.data.source.network.RetrofitClient.apiService
 import com.example.nonameapp.databinding.FragmentSignUpBinding
 import com.example.nonameapp.request.RegisterRequest
 import com.google.android.material.textfield.TextInputEditText
@@ -17,8 +19,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
-
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
+    private val myViewModel: BaseViewModel by viewModels()
+    override val viewModel: BaseViewModel
+        get() = myViewModel
     override fun initData() {
     }
 
@@ -39,16 +43,14 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
-            navigateToHomeScreen()
+
         }
         // Handle password visibility toggle
         setUpPasswordVisibilityToggle()
-
     }
     @SuppressLint("ClickableViewAccessibility")
     private fun setUpPasswordVisibilityToggle() {
         val togglePasswordVisibility = { editText: TextInputEditText ->
-            // Check the display status of the password return true if the password is visible,  false if it is hidden.
             val isPasswordVisible = editText.inputType and InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             if (isPasswordVisible) {
                 // Hide password
@@ -116,39 +118,39 @@ class SignUpFragment() : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
         return true
     }
 
-    private fun signUp(name: String, email: String, password: String) {
-        val call = RetrofitClient.apiService.register(
-            registerRequest = RegisterRequest(
-                email,
-                password,
-                password
-            )
-        )
+    private fun signUp(fullname: String, email: String, password: String) {
+        val call = apiService.register(registerRequest = RegisterRequest(fullname, email, password))
+
         call.enqueue(object : Callback<RegisterResponse> {
+
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
                 if (response.isSuccessful) {
-                    Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(requireContext(), "Sign up failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Sign up successful", Toast.LENGTH_SHORT)
+                        .show()
+                    navigateToMainScreen()
+                } else {
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    Toast.makeText(
+                        requireContext(),
+                        "Sign up failed: $errorMessage",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
-            override fun onFailure(p0: Call<RegisterResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "Login failed: ${t.message}", Toast.LENGTH_SHORT)
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Sign up failed: ${t.message}", Toast.LENGTH_SHORT)
                     .show()
             }
         })
     }
 
-    private fun navigateToHomeScreen() {
+    private fun navigateToMainScreen() {
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }
 }
-
-

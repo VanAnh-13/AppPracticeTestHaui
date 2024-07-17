@@ -14,7 +14,8 @@ object RetrofitClient {
     val apiService: ApiService by lazy {
         getInstance().create(ApiService::class.java)
     }
-    fun  getInstance(): Retrofit = INSTANCE ?: synchronized(this){
+
+    private fun  getInstance(): Retrofit = INSTANCE ?: synchronized(this){
         val instant = retrofitBuilder()
         INSTANCE = instant
         instant
