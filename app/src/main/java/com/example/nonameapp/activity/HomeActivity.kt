@@ -8,8 +8,6 @@ import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
 import com.example.nonameapp.databinding.ActivityMainBinding
 
-private const val TAG = "MainActivity"
-
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
     lateinit var linerLayout: LinearLayout
 

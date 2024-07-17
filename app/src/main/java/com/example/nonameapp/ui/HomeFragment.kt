@@ -15,12 +15,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val homeActivity by lazy { activity as HomeActivity }
     private val adapter by lazy { SubjectAdapter(homeActivity.linerLayout) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        bindData()
-    }
-
     override val viewModel: HomeFragmentModel
         get() = ViewModelProvider(this)[HomeFragmentModel::class.java]
 
