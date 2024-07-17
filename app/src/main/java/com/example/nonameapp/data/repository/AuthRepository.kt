@@ -11,8 +11,8 @@ class AuthRepository(
     private val apiService: ApiService,
 ) : BaseRepository() {
     suspend fun login(loginRequest: LoginRequest): DataState<ApiResponse<LoginResponse>> {
-        return getResult {
-            apiService.login(loginRequest)
+        return getResult{
+            apiService.login()
         }
     }
 }

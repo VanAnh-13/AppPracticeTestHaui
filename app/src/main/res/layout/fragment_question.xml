@@ -1,232 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Header: Back button, Title, Done button -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/ic_arrow_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow_left_blue"
-            android:layout_marginEnd="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Test 1"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_previous" />
 
-        <TextView
-            android:id="@+id/text_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_done"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="Chủ nghĩa xã hội khoa học"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+
+            <TextView
+                android:id="@+id/btn_done"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Done"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Divider line -->
-    <View
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="@color/black" />
 
-    <!-- Clock and Progress -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvClock"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="00:00:00"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/tvProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="2/30"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"/>
-
-    </LinearLayout>
-
-    <!-- Question -->
     <TextView
-        android:id="@+id/tvQuestion"
+        android:id="@+id/tvProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Question:"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:layout_marginStart="16dp"
+        android:gravity="right"
+        android:padding="15dp"
+        android:text="2/30"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
-    <!-- Answers -->
+    <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Option 1 -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/answer1"
+        <TextView
+            android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_background_subjects"
-            android:padding="10dp"
-            android:text="Option 1"
-            android:textAllCaps="false"
-            android:textSize="16sp"/>
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:lines="10"
+            android:text="Question"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <!-- Option 2 -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/answer2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_background_subjects"
-            android:padding="10dp"
-            android:text="Option 2"
-            android:textAllCaps="false"
-            android:textSize="16sp"/>
 
-        <!-- Option 3 -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/answer3"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_background_subjects"
-            android:padding="10dp"
-            android:text="Option 3"
-            android:textAllCaps="false"
-            android:textSize="16sp"/>
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <!-- Option 4 -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/answer4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_background_subjects"
-            android:padding="10dp"
-            android:text="Option 4"
-            android:textAllCaps="false"
-            android:textSize="16sp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonOption1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/choice_button_background"
+                android:text="Option 1"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonOption2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/choice_button_background"
+                android:text="Option 2"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonOption3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/choice_button_background"
+                android:text="Option 3"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonOption4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/choice_button_background"
+                android:text="Option 4"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <!-- Divider line -->
-    <View
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="@color/black" />
 
-    <!-- Navigation buttons: Previous, Reset, Next -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
-        <!-- Previous button -->
         <LinearLayout
+            android:id="@+id/btn_previous"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10sp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10sp">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_previous"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_previous" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_ic_previous"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"/>
-
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Reset button -->
         <LinearLayout
+            android:id="@+id/btn_reset"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10sp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10sp">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_reset"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_reset" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_ic_reset"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"/>
-
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Next button -->
         <LinearLayout
+            android:id="@+id/btn_key"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10sp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_next"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_key" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_check"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10sp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_check" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/mingcute_right_line" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_ic_next"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"/>
-
+                android:textSize="14sp" />
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>
