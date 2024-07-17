@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 open class BaseRepository {
     suspend fun <T> getResult(
-        request: (CoroutineScope) -> ApiResponse<LoginResponse>
+        request: suspend CoroutineScope.() -> T
     ): DataState<T> {
         return withContext(Dispatchers.IO) {
             try {

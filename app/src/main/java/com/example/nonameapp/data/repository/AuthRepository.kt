@@ -12,7 +12,7 @@ class AuthRepository(
 ) : BaseRepository() {
     suspend fun login(loginRequest: LoginRequest): DataState<ApiResponse<LoginResponse>> {
         return getResult{
-            apiService.login()
+            apiService.login(loginRequest)
         }
     }
 }
