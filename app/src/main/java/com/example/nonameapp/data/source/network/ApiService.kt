@@ -5,9 +5,9 @@ import com.example.nonameapp.request.RegisterRequest
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
+import com.example.nonameapp.response.QuestionsTResponse
 import com.example.nonameapp.response.RegisterResponse
 import com.example.nonameapp.response.SubjectResponse
-import com.example.nonameapp.ui.TestViewModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -17,7 +17,7 @@ interface ApiService {
     @POST("/api/v1/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): ApiResponse<LoginResponse>
     @POST("/api/v1/auth/register")
-    fun register(@Body registerRequest: RegisterRequest): ApiResponse<RegisterResponse>
+    suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<RegisterResponse>
 
     @GET("/api/v1/subjects/")
     suspend fun getListSubject(
@@ -31,5 +31,5 @@ interface ApiService {
     ): ApiResponse<QuestionsResponse>
 
     @GET("/api/v1/tests")
-    suspend fun getTestByTestId(@Header("_id") testId: String): ApiResponse<TestViewModel>
+    suspend fun getTestByTestId(@Header("_id") testId: String): ApiResponse<QuestionsTResponse>
 }

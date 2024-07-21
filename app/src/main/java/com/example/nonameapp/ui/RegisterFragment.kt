@@ -35,7 +35,6 @@ class RegisterFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
-
         }
         // Handle password visibility toggle
         setUpPasswordVisibilityToggle()
@@ -111,7 +110,8 @@ class RegisterFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
     }
 
     private fun signUp(fullname: String, email: String, password: String) {
-        viewModel.register(registerRequest = RegisterRequest(fullname, email, password),
+        viewModel.register(
+            registerRequest = RegisterRequest(fullname, email, password),
             onRegisterSuccess = {
                 requireActivity()
                     .supportFragmentManager
@@ -119,9 +119,11 @@ class RegisterFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
                     .replace(R.id.fragmentContainer, LoginFragment())
                     .commit()
                 Toast.makeText(requireContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show()
+
             },
             onRegisterError = {
-                Toast.makeText(requireContext(), "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                println("Login error: ${it.message}")
             })
     }
 }

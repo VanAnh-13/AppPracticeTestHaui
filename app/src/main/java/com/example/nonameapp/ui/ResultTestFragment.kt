@@ -1,17 +1,13 @@
 package com.example.nonameapp.ui
 
 import android.content.res.Resources
-import android.os.Bundle
-import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentResultTestBinding
-import com.example.nonameapp.model.Test
 
 class ResultTestFragment : BaseFragment<FragmentResultTestBinding>(FragmentResultTestBinding::inflate) {
     override val viewModel: QuestionsViewModel
@@ -69,18 +65,18 @@ class ResultTestFragment : BaseFragment<FragmentResultTestBinding>(FragmentResul
         }
     }
 
-    companion object {
-        private const val ARG_TEST = "arg_test"
-
-        @JvmStatic
-        fun newInstance(test: Test): ResultTestFragment {
-            val fragment = ResultTestFragment()
-            val args = Bundle()
-            args.putParcelable(ARG_TEST, test)
-            fragment.arguments = args
-            return fragment
-        }
-    }
+//    companion object {
+//        private const val ARG_TEST = "arg_test"
+//
+//        @JvmStatic
+//        fun newInstance(test: Test): ResultTestFragment {
+//            val fragment = ResultTestFragment()
+//            val args = Bundle()
+//            args.putParcelable(ARG_TEST, test)
+//            fragment.arguments = args
+//            return fragment
+//        }
+//    }
 
 }
 fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()

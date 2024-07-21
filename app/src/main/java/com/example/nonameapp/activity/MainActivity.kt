@@ -1,4 +1,4 @@
-package com.example.nonameapp
+package com.example.nonameapp.activity
 
 import androidx.fragment.app.commit
 import com.example.nonameapp.base.BaseActivity
