@@ -1,0 +1,29 @@
+package com.example.nonameapp.ui
+
+import com.example.nonameapp.base.BaseViewModel
+import com.example.nonameapp.data.repository.AuthRepository
+import com.example.nonameapp.data.source.network.RetrofitClient
+import com.example.nonameapp.request.RegisterRequest
+import com.example.nonameapp.response.RegisterResponse
+
+class RegisterViewModel : BaseViewModel(){
+    private val authRepository = AuthRepository(RetrofitClient.apiService)
+    fun register(
+        registerRequest: RegisterRequest,
+        onRegisterSuccess: (RegisterResponse) -> Unit,
+        onRegisterError: (Exception) -> Unit
+    ) {
+        executeTask(
+            request = {
+                authRepository.register(registerRequest)
+            },
+            onSuccess = {
+                onRegisterSuccess.invoke(it.data)
+            },
+            onError = {
+                onRegisterError.invoke(it)
+            }
+        )
+    }
+
+}

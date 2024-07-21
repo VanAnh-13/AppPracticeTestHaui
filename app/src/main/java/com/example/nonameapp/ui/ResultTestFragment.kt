@@ -6,12 +6,18 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
+import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentResultTestBinding
 import com.example.nonameapp.model.Test
 
 class ResultTestFragment : BaseFragment<FragmentResultTestBinding>(FragmentResultTestBinding::inflate) {
+    override val viewModel: QuestionsViewModel
+        get() = ViewModelProvider(this)[QuestionsViewModel::class.java]
+
+
     private val totalQuestions = 20
     private val answers = mutableListOf<Boolean>() // giả sử câu trả lời đúng/sai
 
