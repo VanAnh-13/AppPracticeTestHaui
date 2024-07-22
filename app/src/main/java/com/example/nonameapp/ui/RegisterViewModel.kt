@@ -4,13 +4,12 @@ import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.data.repository.AuthRepository
 import com.example.nonameapp.data.source.network.RetrofitClient
 import com.example.nonameapp.request.RegisterRequest
-import com.example.nonameapp.response.RegisterResponse
 
 class RegisterViewModel : BaseViewModel(){
     private val authRepository = AuthRepository(RetrofitClient.apiService)
     fun register(
         registerRequest: RegisterRequest,
-        onRegisterSuccess: (RegisterResponse) -> Unit,
+        onRegisterSuccess: (Any) -> Unit,
         onRegisterError: (Exception) -> Unit
     ) {
         executeTask(

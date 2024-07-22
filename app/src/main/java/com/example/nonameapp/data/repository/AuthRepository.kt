@@ -7,7 +7,6 @@ import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
-import com.example.nonameapp.response.RegisterResponse
 
 class AuthRepository(
     private val apiService: ApiService,
@@ -18,7 +17,7 @@ class AuthRepository(
         }
     }
 
-    suspend fun register(registerRequest: RegisterRequest): DataState<ApiResponse<RegisterResponse>> {
+    suspend fun register(registerRequest: RegisterRequest): DataState<ApiResponse<Any>> {
         return getResult {
             apiService.register(registerRequest)
         }
