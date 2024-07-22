@@ -1,23 +1,16 @@
 package com.example.nonameapp.ui
 
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.databinding.FragmentLoginBinding
-import retrofit2.Callback
-import com.example.nonameapp.data.source.network.RetrofitClient
-import com.example.nonameapp.model.LoginResponse
-import retrofit2.Call
-import retrofit2.Response
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.request.LoginRequest
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    private val myViewModel: BaseViewModel by viewModels()
-    override val viewModel: BaseViewModel
-        get() = myViewModel
+    override val viewModel: LoginViewModel
+        get() = ViewModelProvider(this)[LoginViewModel::class.java]
 
     override fun initData() {
     }
@@ -68,26 +61,25 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     // Logic Đăng nhập
     private fun performLogin(email: String, password: String) {
-        val call = RetrofitClient.apiService.login(loginRequest = LoginRequest(email, password))
-
-        call.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                if (response.isSuccessful) {
-                    val loginResponse = response.body()
-                    if (loginResponse != null) {
-                        saveAccessToken(loginResponse.data.accessToken)
-                    }
-                    Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "Login failed: ${t.message}", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+       viewModel.login(
+           loginRequest = LoginRequest(email, password),
+           onLoginSuccess = {
+               requireActivity()
+                   .supportFragmentManager
+                   .beginTransaction()
+                   .replace(R.id.fragmentContainer, QuestionFragment())
+                   .commit()
+               Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
+               saveAccessToken(it.accessToken)
+           },
+           onLoginError = {
+               Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
+               println("Login error: ${it.message}")
+           }
+       )
     }
 
+    // Lưu token vào SharedPreferences
     private fun saveAccessToken(accessToken: String) {
         val sharedPreferences =
             requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
