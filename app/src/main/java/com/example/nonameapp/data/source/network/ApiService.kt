@@ -23,5 +23,6 @@ interface ApiService {
     fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
 
     @GET("/api/v1/questions")
-    suspend fun getQuestionsBySubjectId(@Header("Authorization") accessToken: String, @Header("_id") subjectId: String): ApiResponse<QuestionsResponse>
+    suspend fun getQuestionsBySubjectId(@Header("Authorization") accessToken: String,
+                                        @Path("id") subjectId: String): ApiResponse<QuestionsResponse>
 }
