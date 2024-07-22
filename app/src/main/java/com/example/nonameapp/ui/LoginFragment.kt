@@ -48,14 +48,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             transaction.addToBackStack(null)
             transaction.commit()
         }
-    // check
-        binding.loginButton.setOnClickListener {
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, TestFragment())
-                .commit()
-        }
+//    // check
+//        binding.loginButton.setOnClickListener {
+//            requireActivity()
+//                .supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.fragmentContainer, TestFragment())
+//                .commit()
+//        }
     }
 
     // Validate dữ liệu nhập vào

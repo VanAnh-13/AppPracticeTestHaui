@@ -28,44 +28,45 @@ class TestFragment :
     }
 
     override fun bindData() {
-
     }
 
     override fun observeData() {
-        // Quan sát tên bài test
-        viewModel.testName.observe(viewLifecycleOwner) { testName ->
-            binding.txtTestName.text = testName
-        }
-
-        // Quan sát danh sách câu hỏi
-        viewModel.questions.observe(viewLifecycleOwner) { questions ->
-            listQuestionsT = questions
-            if (listQuestionsT.isNotEmpty()) {
-                displayQuestion(listQuestionsT[currentQuestionTIndex])
-            }
-        }
-
-        // Quan sát lỗi nếu có
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            // Xử lý lỗi
-        }
+//        viewModel.testName.observe(viewLifecycleOwner) { testName ->
+//            binding.txtTestName.text = testName
+//            println(testName)
+//        }
+//
+//        viewModel.questions.observe(viewLifecycleOwner) { questions ->
+//            listQuestionsT = questions
+//            if (listQuestionsT.isNotEmpty()) {
+//                displayQuestion(listQuestionsT[currentQuestionTIndex])
+//            }
+//        }
+//
+//        viewModel.error.observe(viewLifecycleOwner) { error ->
+//            // Xử lý lỗi
+//        }
     }
 
     override fun setOnClick() {
         binding.icArrowBack.setOnClickListener {
-            // Quay lại màn hình Home
-//            findNavController().popBackStack()
         }
 
         binding.textDone.setOnClickListener {
-            // Chuyển đến TestResultFragment
-//            findNavController().navigate(R.id.action_testFragment_to_testResultFragment)
         }
 
         binding.btnNext.setOnClickListener {
-            // Hiển thị câu hỏi tiếp theo
+            // next question
             if (currentQuestionTIndex < listQuestionsT.size - 1) {
                 currentQuestionTIndex++
+                displayQuestion(listQuestionsT[currentQuestionTIndex])
+            }
+        }
+
+        binding.btnPrevious.setOnClickListener {
+            // previous question
+            if (currentQuestionTIndex > 0) {
+                currentQuestionTIndex--
                 displayQuestion(listQuestionsT[currentQuestionTIndex])
             }
         }
