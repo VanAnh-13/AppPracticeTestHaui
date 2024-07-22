@@ -12,8 +12,8 @@ class TestViewModel: BaseViewModel() {
     private val questionRepository = QuestionRepository(RetrofitClient.apiService)
 
 
-    private val _questions = MutableLiveData<List<QuestionsT>>()
-    val questions: LiveData<List<QuestionsT>> get() = _questions
+    private val _questionsT = MutableLiveData<List<QuestionsT>>()
+    val questionsT: LiveData<List<QuestionsT>> get() = _questionsT
 
     private val _testName = MutableLiveData<String>()
     val testName: LiveData<String> get() = _testName
@@ -28,7 +28,7 @@ class TestViewModel: BaseViewModel() {
             },
             onSuccess = {
                 _testName.postValue(it.data.name)
-                _questions.postValue(it.data.questions)
+                _questionsT.postValue(it.data.questionsT)
                 Log.d("TestViewModel", "getQuestionsT: ${it.data}")
             },
             onError = {

@@ -1,5 +1,6 @@
 package com.example.nonameapp.ui
 
+import android.graphics.Color
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModel
@@ -54,30 +55,22 @@ class TestFragment :
 
         binding.icArrowBack.setOnClickListener {
         }
-
         binding.textDone.setOnClickListener {
         }
 
-//        binding.answer1.setOnClickListener {
-//            chooseAnswer(binding.answer1)
-//            currentButton = binding.buttonOption1
-//            currentAnswer = binding.buttonOption1.text.toString()
-//        }
-//        binding.answer2.setOnClickListener {
-//            chooseAnswer(binding.answer2)
-//            currentButton = binding.buttonOption2
-//            currentAnswer = binding.buttonOption2.text.toString()
-//        }
-//        binding.answer3.setOnClickListener {
-//            chooseAnswer(binding.answer2)
-//            currentButton = binding.buttonOption3
-//            currentAnswer = binding.buttonOption3.text.toString()
-//        }
-//        binding.answer4.setOnClickListener {
-//            chooseAnswer(binding.answer4)
-//            currentButton = binding.buttonOption4
-//            currentAnswer = binding.buttonOption4.text.toString()
-//        }
+
+        binding.answer1.setOnClickListener {
+            chooseAnswer(binding.answer1)
+        }
+        binding.answer2.setOnClickListener {
+            chooseAnswer(binding.answer2)
+        }
+        binding.answer3.setOnClickListener {
+            chooseAnswer(binding.answer3)
+        }
+        binding.answer4.setOnClickListener {
+            chooseAnswer(binding.answer4)
+        }
 
         binding.btnNext.setOnClickListener {
             // next question
@@ -107,6 +100,7 @@ class TestFragment :
         binding.answer2.isSelected = false
         binding.answer3.isSelected = false
         binding.answer4.isSelected = false
+
     }
 
     private fun displayQuestion(question: QuestionsT) {
@@ -125,6 +119,7 @@ class TestFragment :
         binding.answer2.isSelected = false
         binding.answer3.isSelected = false
         binding.answer4.isSelected = false
+        button.setBackgroundColor(R.drawable.choice_button_background)
         button.isSelected = true
     }
 }
