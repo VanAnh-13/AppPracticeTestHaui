@@ -10,7 +10,7 @@ class RegisterViewModel : BaseViewModel(){
     private val authRepository = AuthRepository(RetrofitClient.apiService)
     fun register(
         registerRequest: RegisterRequest,
-        onRegisterSuccess: (RegisterResponse) -> Unit,
+        onRegisterSuccess: (Any) -> Unit,
         onRegisterError: (Exception) -> Unit
     ) {
         executeTask(

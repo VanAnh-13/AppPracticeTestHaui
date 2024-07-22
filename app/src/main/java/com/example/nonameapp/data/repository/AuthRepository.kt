@@ -18,7 +18,7 @@ class AuthRepository(
         }
     }
 
-    suspend fun register(registerRequest: RegisterRequest): DataState<ApiResponse<RegisterResponse>> {
+    suspend fun register(registerRequest: RegisterRequest): DataState<ApiResponse<Any>> {
         return getResult {
             apiService.register(registerRequest)
         }

@@ -17,7 +17,7 @@ interface ApiService {
     @POST("/api/v1/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): ApiResponse<LoginResponse>
     @POST("/api/v1/auth/register")
-    suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<RegisterResponse>
+    suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<Any>
 
     @GET("/api/v1/subjects/")
     suspend fun getListSubject(

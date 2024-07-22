@@ -5,6 +5,5 @@ import com.example.nonameapp.model.User
 
 data class RegisterResponse(
     val message: String,
-    val code: Int,
-//    val data: List<User>
+    val code: Int
 )

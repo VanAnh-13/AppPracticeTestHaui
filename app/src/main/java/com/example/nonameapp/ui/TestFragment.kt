@@ -1,6 +1,7 @@
 package com.example.nonameapp.ui
 
 import android.view.View
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,8 +21,6 @@ class TestFragment :
     private var currentQuestionTIndex = 0
 
     private val testId = "6691d7be91302747725eecc0"
-
-
 
     override fun initData() {
         viewModel.getQuestionsT(testId)
@@ -49,35 +48,84 @@ class TestFragment :
     }
 
     override fun setOnClick() {
+
+        var currentAnswer = ""
+        var currentButton: AppCompatButton? = null
+
         binding.icArrowBack.setOnClickListener {
         }
 
         binding.textDone.setOnClickListener {
         }
 
+//        binding.answer1.setOnClickListener {
+//            chooseAnswer(binding.answer1)
+//            currentButton = binding.buttonOption1
+//            currentAnswer = binding.buttonOption1.text.toString()
+//        }
+//        binding.answer2.setOnClickListener {
+//            chooseAnswer(binding.answer2)
+//            currentButton = binding.buttonOption2
+//            currentAnswer = binding.buttonOption2.text.toString()
+//        }
+//        binding.answer3.setOnClickListener {
+//            chooseAnswer(binding.answer2)
+//            currentButton = binding.buttonOption3
+//            currentAnswer = binding.buttonOption3.text.toString()
+//        }
+//        binding.answer4.setOnClickListener {
+//            chooseAnswer(binding.answer4)
+//            currentButton = binding.buttonOption4
+//            currentAnswer = binding.buttonOption4.text.toString()
+//        }
+
         binding.btnNext.setOnClickListener {
             // next question
             if (currentQuestionTIndex < listQuestionsT.size - 1) {
                 currentQuestionTIndex++
+                resetAnswer()
                 displayQuestion(listQuestionsT[currentQuestionTIndex])
             }
+        }
+
+        binding.btnReset.setOnClickListener {
+            resetAnswer()
         }
 
         binding.btnPrevious.setOnClickListener {
             // previous question
             if (currentQuestionTIndex > 0) {
                 currentQuestionTIndex--
+                resetAnswer()
                 displayQuestion(listQuestionsT[currentQuestionTIndex])
             }
         }
     }
 
+    private fun resetAnswer() {
+        binding.answer1.isSelected = false
+        binding.answer2.isSelected = false
+        binding.answer3.isSelected = false
+        binding.answer4.isSelected = false
+    }
+
     private fun displayQuestion(question: QuestionsT) {
-        binding.tvQuestion.text = question.content
-        binding.answer1.text = question.answers.getOrNull(0)
-        binding.answer2.text = question.answers.getOrNull(1)
-        binding.answer3.text = question.answers.getOrNull(2)
-        binding.answer4.text = question.answers.getOrNull(3)
+        binding.apply {
+            binding.tvQuestion.text = question.content
+            binding.answer1.text = question.answers.getOrNull(0)
+            binding.answer2.text = question.answers.getOrNull(1)
+            binding.answer3.text = question.answers.getOrNull(2)
+            binding.answer4.text = question.answers.getOrNull(3)
+            tvProgress.text = "${currentQuestionTIndex + 1}/${listQuestionsT.size}"
+        }
+    }
+
+    private fun chooseAnswer(button: AppCompatButton) {
+        binding.answer1.isSelected = false
+        binding.answer2.isSelected = false
+        binding.answer3.isSelected = false
+        binding.answer4.isSelected = false
+        button.isSelected = true
     }
 }
 
