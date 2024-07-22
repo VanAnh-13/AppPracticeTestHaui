@@ -6,7 +6,6 @@ import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
 import com.example.nonameapp.response.QuestionsTResponse
-import com.example.nonameapp.response.RegisterResponse
 import com.example.nonameapp.response.SubjectResponse
 import retrofit2.http.Body
 import retrofit2.http.GET

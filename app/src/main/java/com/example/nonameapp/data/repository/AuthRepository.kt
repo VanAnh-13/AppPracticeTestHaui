@@ -7,7 +7,6 @@ import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
-import com.example.nonameapp.response.RegisterResponse
 
 class AuthRepository(
     private val apiService: ApiService,
