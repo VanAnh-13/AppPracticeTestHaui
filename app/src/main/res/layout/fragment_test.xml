@@ -19,6 +19,7 @@
             android:src="@drawable/ic_arrow_left_blue" />
 
         <TextView
+            android:id="@+id/txtTestName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -141,10 +142,10 @@
     </LinearLayout>
 
     <!-- Divider line -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black" />
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@android:color/black" />-->
 
     <!-- Navigation buttons: Previous, Reset, Next -->
     <LinearLayout
@@ -203,6 +204,7 @@
 
         <!-- Next button -->
         <LinearLayout
+            android:id="@+id/btnNext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

@@ -1,6 +1,7 @@
 package com.example.nonameapp.response
 
-import com.example.nonameapp.model.QuestionT
+import com.example.nonameapp.model.QuestionsT
 data class QuestionsTResponse (
-    val questions: List<QuestionT>
+    val name : String,
+    val questions: List<QuestionsT>
 )

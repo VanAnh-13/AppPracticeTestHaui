@@ -20,11 +20,11 @@ class QuestionRepository(
         }
     }
 
-    suspend fun getQuestionsT(
+    suspend fun getTestById(
         testId: String
     ): DataState<ApiResponse<QuestionsTResponse>> {
         return getResult {
-            apiService.getTestByTestId(testId)
+            apiService.getTestById(testId)
         }
     }
 }

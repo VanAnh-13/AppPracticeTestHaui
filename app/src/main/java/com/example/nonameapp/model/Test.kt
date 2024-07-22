@@ -4,7 +4,7 @@ data class Test (
     val _id: String,
     val name: String,
     val duration: Int,
-    val questions: List<QuestionT>,
+    val questions: List<QuestionsT>,
     val subject: String,
     val createdAt: String,
     val updatedAt: String,

@@ -1,6 +1,6 @@
 package com.example.nonameapp.model
 
-data class QuestionT(
+data class QuestionsT(
     val _id: String,
     val content: String,
     val answers: List<String>,

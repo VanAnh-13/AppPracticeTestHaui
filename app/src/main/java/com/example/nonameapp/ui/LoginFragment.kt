@@ -5,6 +5,8 @@ import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentLoginBinding
 import android.content.Context
+import android.content.Intent
+import android.text.TextUtils.replace
 import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.request.LoginRequest
 
@@ -45,6 +47,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             transaction.replace(R.id.fragmentContainer, RegisterFragment())
             transaction.addToBackStack(null)
             transaction.commit()
+        }
+    // check
+        binding.loginButton.setOnClickListener {
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, TestFragment())
+                .commit()
         }
     }
 
