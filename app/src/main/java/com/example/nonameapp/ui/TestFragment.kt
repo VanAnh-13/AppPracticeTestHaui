@@ -1,14 +1,11 @@
 package com.example.nonameapp.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Button
-import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
@@ -21,7 +18,7 @@ class TestFragment :
     override val viewModel: TestViewModel
         get() = ViewModelProvider(this)[TestViewModel::class.java]
 
-    private var selectedAnswerId: Int? = null // ID của đáp án được chọn
+    private var selectedAnswerId: Int? = null
     private var totalQuestionsT: List<QuestionsT> = emptyList()
     private var currentQuestion = 0
 
@@ -32,7 +29,7 @@ class TestFragment :
         override fun run() {
             elapsedTime = System.currentTimeMillis() - startTime
             updateClock()
-            handler.postDelayed(this, 1000) // Update every second
+            handler.postDelayed(this, 1000)
         }
     }
 
@@ -43,10 +40,8 @@ class TestFragment :
         startTime = System.currentTimeMillis()
         handler.post(updateTimeRunnable)
     }
-
     override fun bindData() {
     }
-
     override fun observeData() {
         viewModel.questionsT.observe(viewLifecycleOwner) { questionsT ->
             Log.d("TestFragment", "QuestionsT: $questionsT")
@@ -70,10 +65,8 @@ class TestFragment :
             }
         }
     }
-
     override fun setOnClick() {
         binding.apply {
-
             textDone.setOnClickListener {
                 // Stop the timer and pass elapsed time to ResultTestFragment
                 handler.removeCallbacks(updateTimeRunnable)
@@ -84,9 +77,9 @@ class TestFragment :
 
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainer, resultTestFragment)
+                    .addToBackStack(null)
                     .commit()
             }
-
             btnNext.setOnClickListener {
                 if (currentQuestion < totalQuestionsT.size - 1) {
                     currentQuestion++
@@ -96,7 +89,6 @@ class TestFragment :
                     Toast.makeText(requireContext(), "You are on the last question", Toast.LENGTH_SHORT).show()
                 }
             }
-
             btnPrevious.setOnClickListener {
                 if (currentQuestion > 0) {
                     currentQuestion--
@@ -106,23 +98,10 @@ class TestFragment :
                     Toast.makeText(requireContext(), "You are on the first question", Toast.LENGTH_SHORT).show()
                 }
             }
-
             // choose answer
             setupAnswerButtons()
         }
     }
-    private fun updateClock() {
-        val timeString = formatElapsedTime(elapsedTime)
-        binding.tvClock.text = timeString
-    }
-
-    private fun formatElapsedTime(elapsedTime: Long): String {
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(elapsedTime) % 60
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime) % 60
-        val hours = TimeUnit.MILLISECONDS.toHours(elapsedTime)
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
-    }
-
     private fun displayQuestion(question: QuestionsT) {
         binding.apply {
             tvQuestion.text = question.content
@@ -135,7 +114,6 @@ class TestFragment :
     private fun updateProgress() {
         binding.tvProgress.text = "${currentQuestion + 1}/${totalQuestionsT.size}"
     }
-
     private fun setupAnswerButtons() {
         val buttons = listOf(
             binding.answer1,
@@ -151,17 +129,22 @@ class TestFragment :
         }
     }
     private fun onAnswerClicked(button: Button) {
-        // Nếu đã có đáp án được chọn trước đó, đặt lại màu nền
         selectedAnswerId?.let { prevSelectedId ->
             val previousButton = view?.findViewById<Button>(prevSelectedId)
             previousButton?.setBackgroundResource(R.drawable.button_background_subjects) // Màu nền không chọn
         }
-
-        // Cập nhật màu nền cho đáp án được chọn
         button.setBackgroundResource(R.drawable.button_background)
-
-        // Lưu ID của đáp án được chọn
         selectedAnswerId = button.id
+    }
+    private fun updateClock() {
+        val timeString = formatElapsedTime(elapsedTime)
+        binding.tvClock.text = timeString
+    }
+    private fun formatElapsedTime(elapsedTime: Long): String {
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(elapsedTime) % 60
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime) % 60
+        val hours = TimeUnit.MILLISECONDS.toHours(elapsedTime)
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
     }
 }
 

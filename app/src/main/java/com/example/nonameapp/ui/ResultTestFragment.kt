@@ -1,6 +1,7 @@
 package com.example.nonameapp.ui
 
 import android.content.res.Resources
+import android.os.Bundle
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -11,8 +12,8 @@ import com.example.nonameapp.databinding.FragmentResultTestBinding
 
 class ResultTestFragment :
     BaseFragment<FragmentResultTestBinding>(FragmentResultTestBinding::inflate) {
-    override val viewModel: QuestionsViewModel
-        get() = ViewModelProvider(this)[QuestionsViewModel::class.java]
+    override val viewModel: TestViewModel
+        get() = ViewModelProvider(this)[TestViewModel::class.java]
 
 
     private val totalQuestions = 20
