@@ -11,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("/api/v1/auth/login")
@@ -30,5 +31,5 @@ interface ApiService {
     ): ApiResponse<QuestionsResponse>
 
     @GET("/api/v1/tests")
-    suspend fun getTestById(@Header("_id") testId: String): ApiResponse<QuestionsTResponse>
+    suspend fun getTestById(@Path("_id") testId: String): ApiResponse<QuestionsTResponse>
 }
