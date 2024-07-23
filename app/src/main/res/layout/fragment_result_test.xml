@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button_background_subjects"
         android:orientation="horizontal">
@@ -54,31 +54,6 @@
 
         <TextView
             android:id="@+id/txtScore"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="center_vertical"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/button_background_subjects"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:gravity="center_vertical"
-            android:text="@string/text_khong_co_tra_loi"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/txtNoAnswer"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:gravity="center_vertical"

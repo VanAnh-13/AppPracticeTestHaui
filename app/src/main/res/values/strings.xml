@@ -17,9 +17,8 @@
     <string name="text_ic_next">Next</string>
     <string name="text_done">Done</string>
     <string name="text_result">Results</string>
-    <string name="text_diem">Điểm: </string>
-    <string name="text_khong_co_tra_loi">Không có trả lời: </string>
-    <string name="text_thoi_gian_lam">Thời gian làm: </string>
+    <string name="text_diem">Score: </string>
+    <string name="text_thoi_gian_lam">Time Taken: </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

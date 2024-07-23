@@ -15,9 +15,6 @@ class TestViewModel: BaseViewModel() {
     private val _questionsT = MutableLiveData<List<QuestionsT>>()
     val questionsT: LiveData<List<QuestionsT>> get() = _questionsT
 
-    private val _testName = MutableLiveData<String>()
-    val testName: LiveData<String> get() = _testName
-
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
@@ -27,13 +24,10 @@ class TestViewModel: BaseViewModel() {
                 questionRepository.getTestById(testId)
             },
             onSuccess = {
-                _testName.postValue(it.data.name)
                 _questionsT.postValue(it.data.questionsT)
-                Log.d("TestViewModel", "getQuestionsT: ${it.data}")
             },
             onError = {
                 _error.postValue(it.message)
-                Log.e("TestViewModel", "getQuestionsT: ${it.message}")
             }
         )
     }
