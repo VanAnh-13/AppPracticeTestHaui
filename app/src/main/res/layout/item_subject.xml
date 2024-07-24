@@ -17,7 +17,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:padding="20dp"
-        tools:text="Lịch sử Đảng Cộng sản Việt Nam" />
+        tools:text="Tư Tưởng Hồ Chí Minh" />
 
     <Space
         android:layout_width="50dp"
