@@ -31,5 +31,5 @@ interface ApiService {
     ): ApiResponse<QuestionsResponse>
 
     @GET("/api/v1/tests")
-    suspend fun getTestById(@Path("_id") testId: String): ApiResponse<QuestionsTResponse>
+    suspend fun getTestById(@Header("_id") testId: String): ApiResponse<QuestionsTResponse>
 }

@@ -21,12 +21,16 @@ class TestViewModel: BaseViewModel() {
     fun getQuestionsT(testId: String) {
         executeTask(
             request = {
+
                 questionRepository.getTestById(testId)
             },
-            onSuccess = {
-                _questionsT.postValue(it.data.questionsT)
+            onSuccess = {response ->
+                Log.d("TestViewModel", "API response: $response")
+                Log.d("TestViewModel", "Questions: ${response.data.questionsT}")
+                _questionsT.postValue(response.data.questionsT)
             },
             onError = {
+                Log.e("TestViewModel", "Error: ${it.message}")
                 _error.postValue(it.message)
             }
         )
