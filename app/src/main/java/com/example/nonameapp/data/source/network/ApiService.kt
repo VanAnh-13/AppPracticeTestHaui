@@ -1,5 +1,10 @@
 package com.example.nonameapp.data.source.network
 
+import RegisterResponse
+import com.example.nonameapp.base.DataState
+import com.example.nonameapp.model.ApiResponse
+import com.example.nonameapp.model.LoginResponse
+import com.example.nonameapp.model.SubjectResponse
 import com.example.nonameapp.response.RegisterResponse
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
@@ -21,6 +26,11 @@ interface ApiService {
 
     @POST("/api/v1/auth/register")
     fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
+
+    @GET("/api/v1/subjects/")
+    suspend fun getListSubject(
+        @Header("Authorization") accessToken: String
+    ): ApiResponse<SubjectResponse>
 
     @GET("/api/v1/questions")
     suspend fun getQuestionsBySubjectId(@Header("Authorization") accessToken: String,

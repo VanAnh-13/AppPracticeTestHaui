@@ -7,7 +7,7 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseAdapter<T, VB : ViewBinding>(
     private val bindingInflater: (LayoutInflater) -> VB,
-    private val dataList: MutableList<T> = mutableListOf()
+    protected var dataList: MutableList<T> = mutableListOf()
 ) : Adapter<BaseViewHolder<VB>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
         val binding = bindingInflater(LayoutInflater.from(parent.context))

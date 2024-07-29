@@ -42,7 +42,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.registerTextView.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainer, SignUpFragment())
+            transaction.replace(binding.fragmentLogin.id, SignUpFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }
