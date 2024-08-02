@@ -1,9 +1,11 @@
 package com.example.nonameapp.activity
 
+import androidx.navigation.findNavController
+import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
-import com.example.nonameapp.databinding.ActivityHomeBinding
+import com.example.nonameapp.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
     override fun initData() {
 
     }
@@ -13,5 +15,4 @@ class MainActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     override fun setOnClick() {
     }
-
 }

@@ -12,13 +12,15 @@ import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val homeActivity by lazy { activity as HomeActivity }
-    private val adapter by lazy { SubjectAdapter(homeActivity.linerLayout) }
+    private lateinit var adapter: SubjectAdapter
 
     override val viewModel: HomeFragmentModel
         get() = ViewModelProvider(this)[HomeFragmentModel::class.java]
 
     override fun initData() {
+        val homeActivity = activity as HomeActivity
+        adapter = SubjectAdapter(homeActivity.linerLayout)
+
         try {
             viewModel.getSubject(accessToken = getToken(context = requireContext()))
         } catch (e: Exception) {
