@@ -5,7 +5,11 @@ import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentLoginBinding
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.nonameapp.activity.HomeActivity
+import com.example.nonameapp.activity.MainActivity
 import com.example.nonameapp.request.LoginRequest
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -35,16 +39,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     Toast.makeText(requireContext(), "Invalid email", Toast.LENGTH_SHORT).show()
                 }
                 if (password.isEmpty()) {
-                    Toast.makeText(requireContext(), "Enter your password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Enter your password", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
 
-        binding.registerTextView.setOnClickListener {
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(binding.fragmentLogin.id, SignUpFragment())
-            transaction.addToBackStack(null)
-            transaction.commit()
+        binding.registerButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signUpFragment2)
         }
     }
 
@@ -61,22 +63,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     // Logic Đăng nhập
     private fun performLogin(email: String, password: String) {
-       viewModel.login(
-           loginRequest = LoginRequest(email, password),
-           onLoginSuccess = {
-               requireActivity()
-                   .supportFragmentManager
-                   .beginTransaction()
-                   .replace(R.id.fragmentContainer, QuestionFragment())
-                   .commit()
-               Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
-               saveAccessToken(it.accessToken)
-           },
-           onLoginError = {
-               Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
-               println("Login error: ${it.message}")
-           }
-       )
+        viewModel.login(
+            loginRequest = LoginRequest(email, password),
+            onLoginSuccess = {
+                saveAccessToken(it.accessToken)
+                startActivity(Intent(requireContext(), HomeActivity::class.java))
+                requireActivity().finish()
+            },
+            onLoginError = {
+                Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
+                println("Login error: ${it.message}")
+            }
+        )
     }
 
     // Lưu token vào SharedPreferences

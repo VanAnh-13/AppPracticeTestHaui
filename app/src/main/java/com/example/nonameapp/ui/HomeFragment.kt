@@ -1,8 +1,6 @@
 package com.example.nonameapp.ui
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,10 +8,20 @@ import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.adapter.SubjectAdapter
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentHomeBinding
+import com.example.nonameapp.model.OnItemClickListener
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val homeActivity by lazy { activity as HomeActivity }
-    private val adapter by lazy { SubjectAdapter(homeActivity.linerLayout) }
+    private lateinit var homeActivity: HomeActivity
+    private lateinit var adapter: SubjectAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        homeActivity = activity as HomeActivity
+        adapter = SubjectAdapter {
+            homeActivity.onItemClick()
+        }
+    }
 
     override val viewModel: HomeFragmentModel
         get() = ViewModelProvider(this)[HomeFragmentModel::class.java]
@@ -41,7 +49,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun setOnClick() {
-
     }
 
     private fun getToken(

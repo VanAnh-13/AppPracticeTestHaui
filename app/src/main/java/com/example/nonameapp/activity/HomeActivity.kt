@@ -1,27 +1,15 @@
 package com.example.nonameapp.activity
 
-import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.Toast
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
-import com.example.nonameapp.databinding.ActivityMainBinding
+import com.example.nonameapp.model.OnItemClickListener
 
-class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
-    lateinit var linerLayout: LinearLayout
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        handleEvent()
-
-        linerLayout = binding.linearLayout
-    }
-
-    private fun handleEvent() {
-        updateNewIcon()
-    }
-
+class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate),
+    OnItemClickListener {
     private fun updateNewIcon() {
         var selectedIcon: String? = null
 
@@ -75,6 +63,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
     override fun setOnClick() {
+        updateNewIcon()
+    }
+
+    override fun onItemClick() {
+        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
+        binding.linearLayout.visibility = View.GONE
     }
 
 }
