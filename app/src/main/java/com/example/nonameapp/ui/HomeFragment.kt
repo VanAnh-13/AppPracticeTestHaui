@@ -1,6 +1,8 @@
 package com.example.nonameapp.ui
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun setOnClick() {
+
     }
 
     private fun getToken(
