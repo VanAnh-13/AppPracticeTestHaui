@@ -20,7 +20,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
     override fun initData() {
         val accessToken = getAccessToken()
         if (accessToken != null) {
-            viewModel.getQuestions(accessToken, "667f8c8a143b9e33691dc669")
+            viewModel.getQuestions(accessToken, "669d93638607c507e77c548c")
         } else {
             Toast.makeText(requireContext(), "Access token is missing", Toast.LENGTH_SHORT).show()
         }
