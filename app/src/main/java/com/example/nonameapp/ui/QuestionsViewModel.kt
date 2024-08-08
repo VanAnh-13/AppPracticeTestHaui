@@ -23,11 +23,9 @@ class QuestionsViewModel : BaseViewModel() {
             },
             onSuccess = {
                 _questions.postValue(it.data.questions)
-                Log.d("QuestionsViewModel", "getQuestions: ${it.data}")
             },
             onError = {
                 _error.postValue(it.message)
-                Log.e("QuestionsViewModel", "getQuestions: ${it.message}")
             }
         )
     }
