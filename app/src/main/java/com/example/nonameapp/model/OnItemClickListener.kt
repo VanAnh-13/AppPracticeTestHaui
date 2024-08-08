@@ -1,5 +1,5 @@
 package com.example.nonameapp.model
 
 interface OnItemClickListener {
-    fun onItemClick()
+    fun onItemClick(isVisible: Boolean)
 }

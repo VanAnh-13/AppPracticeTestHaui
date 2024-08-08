@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseAdapter<T, VB : ViewBinding>(
-    private val bindingInflater: (LayoutInflater) -> VB,
+    private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB,
     protected var dataList: MutableList<T> = mutableListOf()
 ) : Adapter<BaseViewHolder<VB>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
-        val binding = bindingInflater(LayoutInflater.from(parent.context))
-        return BaseViewHolder(binding)
+        val binding = bindingInflater(LayoutInflater.from(parent.context), parent, false)
+        return BaseViewHolder(binding = binding)
     }
 
     override fun getItemCount(): Int = dataList.size
