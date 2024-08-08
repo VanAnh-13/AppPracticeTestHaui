@@ -2,7 +2,6 @@ package com.example.nonameapp.activity
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
@@ -66,9 +65,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         updateNewIcon()
     }
 
-    override fun onItemClick() {
-        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
-        binding.linearLayout.visibility = View.GONE
+    override fun onItemClick(isVisible: Boolean) {
+        if (!isVisible) {
+            binding.linearLayout.visibility = View.GONE
+        } else {
+            binding.linearLayout.visibility = View.VISIBLE
+        }
     }
 
 }

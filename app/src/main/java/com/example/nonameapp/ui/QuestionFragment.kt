@@ -1,15 +1,19 @@
 package com.example.nonameapp.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.R
+import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentQuestionBinding
 import com.example.nonameapp.model.Question
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionBinding::inflate) {
+    private lateinit var homeActivity: HomeActivity
 
     override val viewModel: QuestionsViewModel
         get() = ViewModelProvider(this)[QuestionsViewModel::class.java]
@@ -18,9 +22,14 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
     private var currentQuestionIndex = 0
 
     override fun initData() {
+        homeActivity = activity as HomeActivity
+
         val accessToken = getAccessToken()
         if (accessToken != null) {
-            viewModel.getQuestions(accessToken, "667f8c8a143b9e33691dc669")
+            viewModel.getQuestions(
+                accessToken = accessToken,
+                subjectId = HomeFragment.idSubject
+            )
         } else {
             Toast.makeText(requireContext(), "Access token is missing", Toast.LENGTH_SHORT).show()
         }
@@ -30,7 +39,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
 
     override fun observeData() {
         viewModel.questions.observe(viewLifecycleOwner) { questions ->
-            this.listQuestions = questions
+            this.listQuestions = questions.shuffled()
             if (listQuestions.isNotEmpty()) {
                 displayQuestion(listQuestions[currentQuestionIndex])
             } else {
@@ -85,6 +94,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
 
         binding.btnReset.setOnClickListener {
             resetSelection()
+            displayQuestion(listQuestions[currentQuestionIndex])
         }
 
         binding.btnCheck.setOnClickListener {
@@ -94,20 +104,28 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
         binding.btnKey.setOnClickListener {
             showKey()
         }
+        binding.btnExit.setOnClickListener {
+            findNavController().navigate(R.id.question_to_home)
+            homeActivity.onItemClick(true)
+        }
     }
 
     private fun getAccessToken(): String? {
-        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
         return sharedPreferences.getString("access_token", null)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun displayQuestion(question: Question) {
+        val shuffledAnswers = question.answers.shuffled()
         binding.apply {
+            tvTitle.text = HomeFragment.nameSubject
             tvQuestion.text = question.content
-            buttonOption1.text = question.answers[0]
-            buttonOption2.text = question.answers[1]
-            buttonOption3.text = question.answers[2]
-            buttonOption4.text = question.answers[3]
+            buttonOption1.text = shuffledAnswers[0]
+            buttonOption2.text = shuffledAnswers[1]
+            buttonOption3.text = shuffledAnswers[2]
+            buttonOption4.text = shuffledAnswers[3]
             tvProgress.text = "${currentQuestionIndex + 1}/${listQuestions.size}"
         }
     }
@@ -132,20 +150,17 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
         binding.buttonOption4.setBackgroundResource(R.drawable.choice_button_background)
     }
 
+    private fun setSelectedButton(button: AppCompatButton) {
+        resetSelection()
+        button.isSelected = true
+    }
+
     private fun resetSelection() {
         binding.buttonOption1.isSelected = false
         binding.buttonOption2.isSelected = false
         binding.buttonOption3.isSelected = false
         binding.buttonOption4.isSelected = false
         resetButtonBorders()
-    }
-
-    private fun setSelectedButton(button: AppCompatButton) {
-        binding.buttonOption1.isSelected = false
-        binding.buttonOption2.isSelected = false
-        binding.buttonOption3.isSelected = false
-        binding.buttonOption4.isSelected = false
-        button.isSelected = true
     }
 
     private fun showKey() {
