@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_nav"
+    app:startDestination="@id/profileFragment">
+
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/profileFragment">
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.example.nonameapp.ui.ProfileFragment"
+            android:label="fragment_profile"
+            tools:layout="@layout/fragment_profile" >
+            <action
+                android:id="@+id/action_profileFragment_to_editProfileFragment"
+                app:destination="@id/editProfileFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/editProfileFragment"
+            android:name="com.example.nonameapp.ui.EditProfileFragment"
+            android:label="fragment_edit_profile"
+            tools:layout="@layout/fragment_edit_profile" >
+            <action
+                android:id="@+id/action_editProfileFragment_to_profileFragment"
+                app:destination="@id/profileFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/settingFragment2"
+            android:name="com.example.nonameapp.ui.SettingFragment"
+            android:label="fragment_setting"
+            tools:layout="@layout/fragment_setting" >
+            <action
+                android:id="@+id/action_settingFragment2_to_profileFragment"
+                app:destination="@id/profileFragment" />
+        </fragment>
+    </navigation>
+
+</navigation>
