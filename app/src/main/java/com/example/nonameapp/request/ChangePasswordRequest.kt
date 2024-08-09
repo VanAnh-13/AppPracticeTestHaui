@@ -5,3 +5,9 @@ data class ChangePasswordRequest(
     val newPassword: String,
     val confirmPassword: String
 )
+
+data class RequestChangePassword (
+    val email: String,
+    val password: String,
+    val confirmPassword: String
+)

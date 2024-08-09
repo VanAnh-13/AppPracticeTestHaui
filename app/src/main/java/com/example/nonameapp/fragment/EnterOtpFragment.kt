@@ -1,27 +1,51 @@
 package com.example.nonameapp.fragment
 
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.base.BaseViewModel
-import com.example.nonameapp.databinding.FragmentForgotPasswordBinding
+import com.example.nonameapp.databinding.FragmentEnterOtpBinding
+import com.example.nonameapp.request.ForgotPasswordRequest
 
-class EnterOtpFragment : BaseFragment<FragmentForgotPasswordBinding>(FragmentForgotPasswordBinding::inflate) {
-    override val viewModel: BaseViewModel
-        get() = TODO("Not yet implemented")
+class EnterOtpFragment : BaseFragment<FragmentEnterOtpBinding>(FragmentEnterOtpBinding::inflate) {
+    override val viewModel: ForgotPasswordModel
+        get() = ViewModelProvider(this)[ForgotPasswordModel::class.java]
 
     override fun initData() {
-        TODO("Not yet implemented")
     }
 
     override fun bindData() {
-        TODO("Not yet implemented")
     }
 
     override fun observeData() {
-        TODO("Not yet implemented")
     }
 
     override fun setOnClick() {
-        TODO("Not yet implemented")
+        binding.btnChangePassword.setOnClickListener {
+            val otp = binding.edtEnterOtp.text.toString()
+
+            if (otp.isEmpty()) {
+                Toast.makeText(requireContext(), "OTP cannot empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                viewModel.verifyOtp(
+                    request = ForgotPasswordRequest(
+                        email = ForgotPasswordFragment.emailChangPassword,
+                        otp = otp
+                    ),
+                    onSuccess = { message ->
+                        if (message == "OTP hợp lệ") {
+                            findNavController().navigate(R.id.otp_to_changPass)
+                        }
+                    },
+                    onError = {
+                        Toast.makeText(requireContext(), "OTP không hợp lệ", Toast.LENGTH_SHORT)
+                            .show()
+                    },
+                )
+            }
+        }
     }
 
 }

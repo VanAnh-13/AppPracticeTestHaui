@@ -48,6 +48,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.registerButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment2)
         }
+
+        binding.forgotPasswordTextView.setOnClickListener {
+            findNavController().navigate(R.id.main_to_email)
+        }
     }
 
     // Validate dữ liệu nhập vào
