@@ -1,12 +1,13 @@
 package com.example.nonameapp.data.source.network
 
-import com.example.nonameapp.model.SubjectResponse
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
 import com.example.nonameapp.response.QuestionsTResponse
+import com.example.nonameapp.response.RegisterResponse
+import com.example.nonameapp.response.SearchResponse
 import com.example.nonameapp.response.SubjectResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -30,7 +31,7 @@ interface ApiService {
     ): ApiResponse<SubjectResponse>
 
     @GET("/api/v1/questions")
-    suspend fun getQuestionsBySubjectId(
+    suspend fun getQuestionsBySubjectIdTest(
         @Header("Authorization") accessToken: String,
         @Header("_id") subjectId: String
     ): ApiResponse<QuestionsResponse>

@@ -21,7 +21,6 @@ class TestViewModel: BaseViewModel() {
     fun getQuestionsT(testId: String) {
         executeTask(
             request = {
-
                 questionRepository.getTestById(testId)
             },
             onSuccess = {response ->

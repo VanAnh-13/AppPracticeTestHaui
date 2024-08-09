@@ -2,6 +2,7 @@ package com.example.nonameapp.activity
 
 import android.view.View
 import android.widget.ImageView
+import androidx.navigation.findNavController
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
@@ -15,11 +16,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         binding.btnHome.setOnClickListener {
             selectedIcon = if (selectedIcon == "home") null else "home"
             updateIcons(selectedIcon = selectedIcon)
+
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.homeFragment)
         }
 
-        binding.btnDocument.setOnClickListener {
+        binding.btnTest.setOnClickListener {
             selectedIcon = if (selectedIcon == "document") null else "document"
             updateIcons(selectedIcon = selectedIcon)
+
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.home_to_test)
         }
 
         binding.btnSearch.setOnClickListener {
@@ -37,7 +42,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         )
 
         changeIcon(
-            view = binding.btnDocument,
+            view = binding.btnTest,
             isSelected = selectedIcon == "document",
             oldIcon = R.drawable.document,
             newIcon = R.drawable.vector__1_,

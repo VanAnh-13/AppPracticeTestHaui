@@ -1,17 +1,14 @@
 package com.example.nonameapp.ui
 
-import android.widget.Toast
-import com.example.nonameapp.R
-import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.databinding.FragmentLoginBinding
 import android.content.Context
 import android.content.Intent
-import android.content.Intent
-import android.text.TextUtils.replace
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.nonameapp.R
 import com.example.nonameapp.activity.HomeActivity
-import com.example.nonameapp.activity.MainActivity
+import com.example.nonameapp.base.BaseFragment
+import com.example.nonameapp.databinding.FragmentLoginBinding
 import com.example.nonameapp.request.LoginRequest
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -49,6 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.registerButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment2)
+        }
     }
 
     // Validate dữ liệu nhập vào
@@ -62,6 +60,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         return true
     }
 
+
     // Logic Đăng nhập
     private fun performLogin(email: String, password: String) {
         viewModel.login(
@@ -72,7 +71,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 requireActivity().finish()
             },
             onLoginError = {
-                Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT)
+                    .show()
                 println("Login error: ${it.message}")
             }
         )
@@ -88,4 +88,5 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
         Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
     }
+
 }

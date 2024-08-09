@@ -1,17 +1,19 @@
 package com.example.nonameapp.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.text.InputType
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.R
+import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentSignUpBinding
 import com.example.nonameapp.request.RegisterRequest
 import com.google.android.material.textfield.TextInputEditText
 
-class RegisterFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
     override val viewModel: RegisterViewModel
         get() = ViewModelProvider(this)[RegisterViewModel::class.java]
 
@@ -113,11 +115,8 @@ class RegisterFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBindi
         viewModel.register(
             registerRequest = RegisterRequest(fullname, email, password),
             onRegisterSuccess = {
-                requireActivity()
-                    .supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, LoginFragment())
-                    .commit()
+                startActivity(Intent(requireContext(), HomeActivity::class.java))
+
                 Toast.makeText(requireContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show()
 
             },
