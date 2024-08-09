@@ -1,8 +1,6 @@
 package com.example.nonameapp.ui
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +8,6 @@ import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.adapter.SubjectAdapter
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentHomeBinding
-import com.example.nonameapp.model.OnItemClickListener
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private lateinit var homeActivity: HomeActivity

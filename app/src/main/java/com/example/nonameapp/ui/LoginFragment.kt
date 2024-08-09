@@ -4,13 +4,13 @@ import android.widget.Toast
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentLoginBinding
-import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.activity.HomeActivity
-import com.example.nonameapp.activity.MainActivity
 import com.example.nonameapp.request.LoginRequest
+import com.example.nonameapp.data.source.local.SharedPreferencesManager
+import com.example.nonameapp.data.source.local.SharedPreferencesManager.saveUserInfo
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     override val viewModel: LoginViewModel
@@ -67,6 +67,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             loginRequest = LoginRequest(email, password),
             onLoginSuccess = {
                 saveAccessToken(it.accessToken)
+                saveUserInfo(requireContext(), it.user)
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
                 requireActivity().finish()
             },
@@ -79,12 +80,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     // Lưu token vào SharedPreferences
     private fun saveAccessToken(accessToken: String) {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString("access_token", "Bearer $accessToken")
-            apply()
-        }
+        SharedPreferencesManager.saveToken(requireContext(), "Bearer $accessToken")
         Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
     }
+
 }
