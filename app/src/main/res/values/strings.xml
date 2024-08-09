@@ -11,4 +11,22 @@
     <string name="nh_p_m_t_kh_u_m_i">Nhập mật khẩu mới:</string>
     <string name="nh_p_l_i_m_t_kh_u_m_i">Nhập lại mật khẩu mới:</string>
     <string name="ho_n_th_nh">Hoàn thành</string>
+    <string name="sign_up_h1">Sign up</string>
+    <string name="sign_up_h2">Create an account to get started</string>
+    <string name="sign_up_name">Enter a username*</string>
+    <string name="sign_up_email_address">Enter your email*</string>
+    <string name="sign_up_password">Create a password*</string>
+    <string name="sign_up_confirm">Confirm password*</string>
+    <string name="text_button_sign_up">Sign up</string>
+    <string name="text_button_test1">Test 1</string>
+    <string name="text_button_test2">Test 2</string>
+    <string name="text_button_test3">Test 3</string>
+    <string name="text_button_test4">Test 4</string>
+    <string name="text_button_test5">Test 5</string>
+    <string name="text_ic_previous">Previous</string>
+    <string name="text_ic_reset">Reset</string>
+    <string name="text_ic_next">Next</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

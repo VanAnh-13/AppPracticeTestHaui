@@ -1,7 +1,7 @@
 package com.example.nonameapp.utils.constant
 
 object APIConstant {
-    const val BASE_URL = ""
+    const val BASE_URL = "https://hit-product-2024.onrender.com"
 
     object EndPoint {
 
