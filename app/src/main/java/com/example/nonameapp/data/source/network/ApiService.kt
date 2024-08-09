@@ -1,8 +1,10 @@
 package com.example.nonameapp.data.source.network
 
 import com.example.nonameapp.model.SubjectResponse
+import com.example.nonameapp.request.ChangePasswordRequest
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
+import com.example.nonameapp.request.UpdateProfileRequest
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
@@ -36,11 +38,22 @@ interface ApiService {
         @Path("id") subjectId: String
     ): ApiResponse<QuestionsResponse>
 
-    suspend fun searchQuestions(@Query("search") query: String) : ApiResponse<SearchResponse>
+    @GET("/api/v1/questions")
+    suspend fun searchQuestions(
+        @Header("Authorization") accessToken: String,
+        @Query("search") query: String
+    ): ApiResponse<SearchResponse>
 
     @PUT("/api/v1/auth/change-profile")
     suspend fun updateProfile(
         @Header("Authorization") accessToken: String,
-        @Body registerRequest: RegisterRequest
+        @Body updateProfileRequest: UpdateProfileRequest
     ): ApiResponse<RegisterResponse>
+
+    @PUT("/api/v1/auth/change-password")
+    suspend fun changePassword(
+        @Header("Authorization") accessToken: String,
+        @Body changePasswordRequest: ChangePasswordRequest
+    ): ApiResponse<Any>
+
 }
