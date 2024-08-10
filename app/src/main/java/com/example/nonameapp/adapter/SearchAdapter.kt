@@ -22,8 +22,8 @@ class SearchAdapter : BaseAdapter<Question, ItemSearchResultBinding>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setResultList(dataList: SearchResponse) {
-        this.dataList = dataList.data.toMutableList()
-        notifyDataSetChanged() // Notify that the whole dataset has changed
+    fun setResultList(dataList: SearchResponse?) {
+        this.dataList = dataList?.data?.toMutableList() ?: mutableListOf()
+        notifyDataSetChanged()
     }
 }
