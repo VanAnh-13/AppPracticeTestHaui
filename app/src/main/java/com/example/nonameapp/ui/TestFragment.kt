@@ -1,6 +1,7 @@
 package com.example.nonameapp.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,13 +11,19 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.R
+import com.example.nonameapp.activity.HomeActivity
+import com.example.nonameapp.adapter.SubjectAdapter
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentTestBinding
 import com.example.nonameapp.model.QuestionsT
+import com.example.nonameapp.ui.HomeFragment.Companion.setSubjectIdAndName
 import java.util.concurrent.TimeUnit
 
 class TestFragment :
     BaseFragment<FragmentTestBinding>(FragmentTestBinding::inflate) {
+    private lateinit var adapterSubject: SubjectAdapter
+    private lateinit var homeActivity: HomeActivity
+
     override val viewModel: TestViewModel
         get() = ViewModelProvider(this)[TestViewModel::class.java]
 
@@ -35,10 +42,21 @@ class TestFragment :
         }
     }
 
-    private val testId = "6691d7be91302747725eecc0"
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        homeActivity = activity as HomeActivity
+
+        adapterSubject = SubjectAdapter(
+            { homeActivity.onItemClick(false) },
+            { findNavController().navigate(R.id.home_to_exerciseTest) },
+            { id, name -> setSubjectIdAndName(newId = id, newName = name) },
+        )
+
+    }
 
     override fun initData() {
-        viewModel.getQuestionsT(testId)
+        viewModel.getQuestionsT(ExerciseTestFragment.idSubject)
         startTime = System.currentTimeMillis()
         handler.post(updateTimeRunnable)
     }
@@ -50,7 +68,7 @@ class TestFragment :
         viewModel.questionsT.observe(viewLifecycleOwner) { questionsT ->
             Log.d("TestFragment", "QuestionsT: $questionsT")
             if (questionsT != null) {
-                totalQuestionsT = questionsT
+                totalQuestionsT = questionsT.questions
                 if (totalQuestionsT.isNotEmpty()) {
                     Log.d("TestFragment", "Displaying question at index: $currentQuestion")
                     displayQuestion(totalQuestionsT[currentQuestion])
@@ -110,6 +128,10 @@ class TestFragment :
             }
             // choose answer
             setupAnswerButtons()
+
+            binding.btnBackToExercise.setOnClickListener {
+                findNavController().navigate(R.id.test_to_exercise)
+            }
         }
     }
 

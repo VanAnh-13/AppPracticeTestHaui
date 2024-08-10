@@ -7,13 +7,14 @@ import com.example.nonameapp.base.BaseViewModel
 import com.example.nonameapp.data.repository.QuestionRepository
 import com.example.nonameapp.data.source.network.RetrofitClient
 import com.example.nonameapp.model.QuestionsT
+import com.example.nonameapp.response.Test
 
-class TestViewModel: BaseViewModel() {
+class TestViewModel : BaseViewModel() {
     private val questionRepository = QuestionRepository(RetrofitClient.apiService)
 
 
-    private val _questionsT = MutableLiveData<List<QuestionsT>>()
-    val questionsT: LiveData<List<QuestionsT>> get() = _questionsT
+    private val _questionsT = MutableLiveData<Test>()
+    val questionsT: LiveData<Test> get() = _questionsT
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
@@ -23,13 +24,13 @@ class TestViewModel: BaseViewModel() {
             request = {
                 questionRepository.getTestById(testId)
             },
-            onSuccess = {response ->
-                Log.d("TestViewModel", "API response: $response")
-                Log.d("TestViewModel", "Questions: ${response.data.questionsT}")
-                _questionsT.postValue(response.data.questionsT)
+            onSuccess = { response ->
+                Log.d("TestViewModel", "Questions: ${response.data}")
+                val x = response.data.test
+                _questionsT.postValue(x)
             },
             onError = {
-                Log.e("TestViewModel", "Error: ${it.message}")
+                Log.e("Error", "Error: ${it.message}")
                 _error.postValue(it.message)
             }
         )

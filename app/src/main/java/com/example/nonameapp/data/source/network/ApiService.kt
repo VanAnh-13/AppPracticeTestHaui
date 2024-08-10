@@ -1,5 +1,7 @@
 package com.example.nonameapp.data.source.network
 
+import com.example.nonameapp.request.ChangePasswordRequest
+import com.example.nonameapp.request.ForgotPasswordRequest
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
 import com.example.nonameapp.request.RequestChangePassword
@@ -11,6 +13,7 @@ import com.example.nonameapp.response.QuestionsTResponse
 import com.example.nonameapp.response.RegisterResponse
 import com.example.nonameapp.response.SearchResponse
 import com.example.nonameapp.response.SubjectResponse
+import com.example.nonameapp.response.TestResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -47,8 +50,13 @@ interface ApiService {
         @Header("_id") subjectId: String
     ): ApiResponse<QuestionsResponse>
 
-    @GET("/api/v1/tests")
-    suspend fun getTestById(@Header("_id") testId: String): ApiResponse<QuestionsTResponse>
+    @GET("/api/v1/tests/subject/{id}")
+    suspend fun getTestBySubjectId(
+        @Path("id") subjectId: String
+    ): ApiResponse<TestResponse>
+
+    @GET("/api/v1/tests/{id}")
+    suspend fun getTestById(@Path("id") testId: String): ApiResponse<QuestionsTResponse>
 
     @GET("/api/v1/questions/subject/{id}")
     suspend fun getQuestionsBySubjectId(

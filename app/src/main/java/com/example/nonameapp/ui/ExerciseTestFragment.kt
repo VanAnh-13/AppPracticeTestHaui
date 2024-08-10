@@ -1,56 +1,51 @@
 package com.example.nonameapp.ui
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nonameapp.R
 import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.adapter.SubjectAdapter
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.databinding.FragmentHomeBinding
+import com.example.nonameapp.databinding.FragmentExerciseTestBinding
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+class ExerciseTestFragment :
+    BaseFragment<FragmentExerciseTestBinding>(FragmentExerciseTestBinding::inflate) {
     private lateinit var homeActivity: HomeActivity
     private lateinit var adapter: SubjectAdapter
 
     companion object {
         var idSubject = ""
         var nameSubject = ""
-        var isHomeFragment = true
+    }
 
-        fun setSubjectIdAndName(newId: String = "", newName: String = "") {
-            idSubject = newId
-            nameSubject = newName
-        }
+    private fun setSubjectIdAndName(newId: String = "", newName: String = "") {
+        idSubject = newId
+        nameSubject = newName
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         homeActivity = activity as HomeActivity
+
         adapter = SubjectAdapter(
             { homeActivity.onItemClick(false) },
-            {
-                if (isHomeFragment) {
-                    findNavController().navigate(R.id.home_to_question)
-                } else {
-                    findNavController().navigate(R.id.home_to_exerciseTest)
-                }
-            },
+            { findNavController().navigate(R.id.exercise_to_test) },
             { id, name -> setSubjectIdAndName(newId = id, newName = name) },
         )
     }
 
-    override val viewModel: HomeFragmentModel
-        get() = ViewModelProvider(this)[HomeFragmentModel::class.java]
+    override val viewModel: ExerciseTestModel
+        get() = ViewModelProvider(this)[ExerciseTestModel::class.java]
 
     override fun initData() {
         try {
-            viewModel.getSubject(accessToken = getToken(context = requireContext()))
+            viewModel.getSubject(HomeFragment.idSubject)
         } catch (e: Exception) {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show();
         }
@@ -59,7 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun bindData() {
         binding.recyclerviewSubject.adapter = adapter
         binding.recyclerviewSubject.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.listSubject.value?.subjects?.let {
+        viewModel.listSubject.value?.test?.let {
             adapter.setSubjectList(it)
         }
     }

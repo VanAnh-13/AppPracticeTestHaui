@@ -9,6 +9,7 @@ import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
 import com.example.nonameapp.model.OnItemClickListener
 import com.example.nonameapp.data.source.local.SharedPreferencesManager
+import com.example.nonameapp.ui.HomeFragment
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate),
     OnItemClickListener {
@@ -19,6 +20,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             selectedIcon = if (selectedIcon == "home") null else "home"
             updateIcons(selectedIcon = selectedIcon)
 
+            HomeFragment.isHomeFragment = true
             findNavController(binding.fragmentAllFunction.id).navigate(R.id.homeFragment)
         }
 
@@ -26,7 +28,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             selectedIcon = if (selectedIcon == "document") null else "document"
             updateIcons(selectedIcon = selectedIcon)
 
-            findNavController(binding.fragmentAllFunction.id).navigate(R.id.home_to_test)
+            HomeFragment.isHomeFragment = false
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.homeFragment)
         }
 
         binding.btnSearch.setOnClickListener {
