@@ -2,6 +2,8 @@ package com.example.nonameapp.data.source.network
 
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
+import com.example.nonameapp.request.RequestChangePassword
+import com.example.nonameapp.request.UpdateProfileRequest
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
@@ -25,6 +27,15 @@ interface ApiService {
     @POST("/api/v1/auth/register")
     suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<Any>
 
+    @POST("/api/v1/auth/forgot-password")
+    suspend fun getOtp(@Body request: ForgotPasswordRequest): ApiResponse<Any>
+
+    @POST("/api/v1/auth/verify-otp")
+    suspend fun verifyOtp(@Body request: ForgotPasswordRequest): ApiResponse<Any>
+
+    @POST("/api/v1/auth/reset-password")
+    suspend fun changePassword(@Body changePasswordRequest: RequestChangePassword): ApiResponse<Any>
+
     @GET("/api/v1/subjects/")
     suspend fun getListSubject(
         @Header("Authorization") accessToken: String
@@ -45,11 +56,22 @@ interface ApiService {
         @Path("id") subjectId: String
     ): ApiResponse<QuestionsResponse>
 
-    suspend fun searchQuestions(@Query("search") query: String) : ApiResponse<SearchResponse>
+    @GET("/api/v1/questions")
+    suspend fun searchQuestions(
+        @Header("Authorization") accessToken: String,
+        @Query("search") query: String
+    ): ApiResponse<SearchResponse>
 
     @PUT("/api/v1/auth/change-profile")
     suspend fun updateProfile(
         @Header("Authorization") accessToken: String,
-        @Body registerRequest: RegisterRequest
+        @Body updateProfileRequest: UpdateProfileRequest
     ): ApiResponse<RegisterResponse>
+
+    @PUT("/api/v1/auth/change-password")
+    suspend fun changePassword(
+        @Header("Authorization") accessToken: String,
+        @Body changePasswordRequest: ChangePasswordRequest
+    ): ApiResponse<Any>
+
 }

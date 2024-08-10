@@ -1,27 +1,46 @@
 package com.example.nonameapp.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.nonameapp.base.BaseViewModel
+import com.example.nonameapp.base.DataState
 import com.example.nonameapp.data.repository.SearchRepository
 import com.example.nonameapp.data.source.network.RetrofitClient
+import com.example.nonameapp.model.Question
 import com.example.nonameapp.response.SearchResponse
+import kotlinx.coroutines.launch
 
 class SearchViewModel : BaseViewModel() {
     private val searchRepository = SearchRepository(RetrofitClient.apiService)
-    fun search(
-        query: String,
-        onSearchSuccess: (SearchResponse) -> Unit,
-        onSearchError: (Exception) -> Unit
-    ) {
+
+    private val _searchResults = MutableLiveData<SearchResponse>()
+    val searchResults: LiveData<SearchResponse> get() = _searchResults
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
+
+    fun search(accessToken: String, query: String) {
         executeTask(
             request = {
-                searchRepository.searchQuestions(query)
+                searchRepository.searchQuestions(accessToken, query)
             },
             onSuccess = {
-                onSearchSuccess.invoke(it.data)
+                updateSearchResults(it.data)
             },
             onError = {
-                onSearchError.invoke(it)
+                it.message?.let { it1 -> setErrorMessage(it1) }
             }
         )
     }
+
+
+    fun updateSearchResults(results: SearchResponse) {
+        _searchResults.value = results
+    }
+
+    fun setErrorMessage(message: String) {
+        _errorMessage.value = message
+    }
 }
+

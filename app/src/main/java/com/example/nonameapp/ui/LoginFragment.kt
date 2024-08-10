@@ -1,15 +1,16 @@
 package com.example.nonameapp.ui
 
-import android.content.Context
-import android.content.Intent
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.R
-import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentLoginBinding
+import android.content.Intent
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.request.LoginRequest
+import com.example.nonameapp.data.source.local.SharedPreferencesManager
+import com.example.nonameapp.data.source.local.SharedPreferencesManager.saveUserInfo
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     override val viewModel: LoginViewModel
@@ -47,6 +48,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.registerButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment2)
         }
+
+        binding.forgotPasswordTextView.setOnClickListener {
+            findNavController().navigate(R.id.main_to_email)
+        }
     }
 
     // Validate dữ liệu nhập vào
@@ -60,19 +65,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         return true
     }
 
-
     // Logic Đăng nhập
     private fun performLogin(email: String, password: String) {
         viewModel.login(
             loginRequest = LoginRequest(email, password),
             onLoginSuccess = {
                 saveAccessToken(it.accessToken)
+                saveUserInfo(requireContext(), it.user)
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
                 requireActivity().finish()
             },
             onLoginError = {
-                Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
                 println("Login error: ${it.message}")
             }
         )
@@ -80,12 +84,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     // Lưu token vào SharedPreferences
     private fun saveAccessToken(accessToken: String) {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString("access_token", "Bearer $accessToken")
-            apply()
-        }
+        SharedPreferencesManager.saveToken(requireContext(), "Bearer $accessToken")
         Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
     }
 

@@ -13,10 +13,34 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment2"
             app:destination="@id/signUpFragment2" />
+        <action
+            android:id="@+id/main_to_email"
+            app:destination="@id/forgotPasswordFragment2" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment2"
         android:name="com.example.nonameapp.ui.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.nonameapp.fragment.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/enterOtpFragment"
+        android:name="com.example.nonameapp.fragment.EnterOtpFragment"
+        android:label="EnterOtpFragment" >
+        <action
+            android:id="@+id/otp_to_changPass"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment2"
+        android:name="com.example.nonameapp.fragment.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/email_to_otp"
+            app:destination="@id/enterOtpFragment" />
+    </fragment>
 </navigation>
