@@ -28,11 +28,13 @@ class SettingFragment() : BaseFragment<FragmentSettingBinding>(FragmentSettingBi
     override fun setOnClick() {
         binding.btnLogout.setOnClickListener {
             showLogoutDialog()
+
         }
-        binding.settingAccount.setOnClickListener{
-            findNavController().navigate(R.id.action_settingFragment2_to_profileFragment)
+        binding.settingAccount.setOnClickListener {
+            findNavController().navigate(R.id.setting_to_profile)
         }
     }
+
     private fun showLogoutDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Đăng xuất")
@@ -52,7 +54,8 @@ class SettingFragment() : BaseFragment<FragmentSettingBinding>(FragmentSettingBi
     }
 
     private fun logout(context: Context) {
-        val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             remove("access_token")
             apply()

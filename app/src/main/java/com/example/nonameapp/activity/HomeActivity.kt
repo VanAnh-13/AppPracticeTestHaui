@@ -3,6 +3,7 @@ package com.example.nonameapp.activity
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
+import androidx.navigation.findNavController
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
@@ -27,6 +28,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         binding.btnSearch.setOnClickListener {
             selectedIcon = if (selectedIcon == "search") null else "search"
             updateIcons(selectedIcon = selectedIcon)
+
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.home_to_search)
+        }
+
+        binding.btnDetail.setOnClickListener {
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.settingFragment)
         }
     }
 

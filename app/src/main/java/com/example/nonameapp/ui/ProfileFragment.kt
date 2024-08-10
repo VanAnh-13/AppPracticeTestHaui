@@ -1,6 +1,5 @@
 package com.example.nonameapp.ui
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentProfileBinding
@@ -36,7 +35,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     override fun setOnClick() {
         binding.editProfileButton.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+            findNavController().navigate(R.id.profile_to_edit)
         }
     }
 }
