@@ -19,14 +19,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 binding.username.text = user.fullName
                 binding.bio.text = user.email
             }
-
-        Glide.with(requireContext())
-            .load(SharedPreferencesManager.getUserInfo(requireContext())?.avatar)
-            .into(binding.profileImage)
     }
 
     override fun bindData() {
-
+        Glide.with(requireContext())
+            .load(SharedPreferencesManager.getUserInfo(requireContext())?.avatar)
+            .into(binding.profileImage)
     }
 
     override fun observeData() {

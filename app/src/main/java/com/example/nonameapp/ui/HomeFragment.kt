@@ -3,8 +3,6 @@ package com.example.nonameapp.ui
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nonameapp.R
@@ -39,6 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     findNavController().navigate(R.id.home_to_question)
                 } else {
                     findNavController().navigate(R.id.home_to_exerciseTest)
+                    homeActivity.onItemClick(true)
                 }
             },
             { id, name -> setSubjectIdAndName(newId = id, newName = name) },

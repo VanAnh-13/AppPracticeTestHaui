@@ -66,6 +66,10 @@ class ExerciseTestFragment :
     }
 
     override fun setOnClick() {
+        binding.btnBackToExercise.setOnClickListener {
+            findNavController().navigate(R.id.homeFragment)
+            homeActivity.onItemClick(true)
+        }
     }
 
     private fun getToken(

@@ -111,9 +111,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
         return true
     }
 
-    private fun signUp(fullname: String, email: String, password: String) {
+    private fun signUp(fullName: String, email: String, password: String) {
         viewModel.register(
-            registerRequest = RegisterRequest(fullname, email, password),
+            registerRequest = RegisterRequest(fullName, email, password),
             onRegisterSuccess = {
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
 

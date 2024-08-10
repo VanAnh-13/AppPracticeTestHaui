@@ -6,6 +6,7 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentResultTestBinding
@@ -72,7 +73,7 @@ class ResultTestFragment :
 
     override fun setOnClick() {
         binding.icArrowBack.setOnClickListener {
-            // back home
+            findNavController().navigate(R.id.result_to_home)
         }
     }
 }

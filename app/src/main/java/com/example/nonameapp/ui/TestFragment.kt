@@ -72,6 +72,7 @@ class TestFragment :
                 if (totalQuestionsT.isNotEmpty()) {
                     Log.d("TestFragment", "Displaying question at index: $currentQuestion")
                     displayQuestion(totalQuestionsT[currentQuestion])
+                    updateProgress()
                 } else {
                     Log.d("TestFragment", "No questions found")
                     Toast.makeText(requireContext(), "No questions found", Toast.LENGTH_SHORT)
@@ -131,6 +132,8 @@ class TestFragment :
 
             binding.btnBackToExercise.setOnClickListener {
                 findNavController().navigate(R.id.test_to_exercise)
+
+                homeActivity.onItemClick(true)
             }
         }
     }

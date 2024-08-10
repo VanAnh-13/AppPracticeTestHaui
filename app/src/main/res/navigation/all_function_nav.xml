@@ -48,7 +48,7 @@
         android:label="fragment_result_test"
         tools:layout="@layout/fragment_result_test" >
         <action
-            android:id="@+id/result_to_exercise"
+            android:id="@+id/result_to_home"
             app:destination="@id/exerciseTestFragment" />
     </fragment>
     <fragment

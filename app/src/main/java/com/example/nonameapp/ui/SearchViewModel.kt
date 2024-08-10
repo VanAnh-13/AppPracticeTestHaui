@@ -8,6 +8,7 @@ import com.example.nonameapp.base.DataState
 import com.example.nonameapp.data.repository.SearchRepository
 import com.example.nonameapp.data.source.network.RetrofitClient
 import com.example.nonameapp.model.Question
+import com.example.nonameapp.request.CreatePostRequest
 import com.example.nonameapp.response.SearchResponse
 import kotlinx.coroutines.launch
 
@@ -35,12 +36,29 @@ class SearchViewModel : BaseViewModel() {
     }
 
 
-    fun updateSearchResults(results: SearchResponse) {
+    private fun updateSearchResults(results: SearchResponse) {
         _searchResults.value = results
     }
 
-    fun setErrorMessage(message: String) {
+    private fun setErrorMessage(message: String) {
         _errorMessage.value = message
     }
+
+    fun createPost(
+        accessToken: String,
+        createPostRequest: CreatePostRequest,
+        onCreateSuccess: (String) -> Unit,
+        onCreateError: () -> Unit
+    ) = executeTask(
+        request = {
+            searchRepository.createPost(token = accessToken, createPostRequest = createPostRequest)
+        },
+        onSuccess = {
+            onCreateSuccess.invoke(it.message)
+        },
+        onError = {
+            onCreateError.invoke()
+        }
+    )
 }
 

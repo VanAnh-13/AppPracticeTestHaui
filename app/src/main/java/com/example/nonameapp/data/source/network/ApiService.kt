@@ -1,12 +1,14 @@
 package com.example.nonameapp.data.source.network
 
 import com.example.nonameapp.request.ChangePasswordRequest
+import com.example.nonameapp.request.CreatePostRequest
 import com.example.nonameapp.request.ForgotPasswordRequest
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
 import com.example.nonameapp.request.RequestChangePassword
 import com.example.nonameapp.request.UpdateProfileRequest
 import com.example.nonameapp.response.ApiResponse
+import com.example.nonameapp.response.CreatePostResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
 import com.example.nonameapp.response.QuestionsTResponse
@@ -82,4 +84,9 @@ interface ApiService {
         @Body changePasswordRequest: ChangePasswordRequest
     ): ApiResponse<Any>
 
+    @PUT("/api/v1/posts")
+    suspend fun createPost(
+        @Header("Authorization") accessToken: String,
+        @Body createPostRequest: CreatePostRequest
+    ): ApiResponse<CreatePostResponse>
 }
