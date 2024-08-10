@@ -3,6 +3,8 @@ package com.example.nonameapp.ui
 import android.app.Dialog
 import android.net.Uri
 import android.provider.MediaStore
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.ViewGroup
@@ -29,6 +31,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         get() = ViewModelProvider(this)[SearchViewModel::class.java]
 
     private lateinit var searchAdapter: SearchAdapter
+    private var searchHandler: Handler? = null
+    private var searchRunnable: Runnable? = null
 
     private var uri: Uri? = null
 
@@ -42,10 +46,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun initData() {
-        searchAdapter = SearchAdapter()
+        searchHandler = Handler(Looper.getMainLooper())
     }
 
     override fun bindData() {
+        searchAdapter = SearchAdapter()
         binding.searchResults.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = searchAdapter
@@ -67,12 +72,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                SharedPreferencesManager.getToken(requireContext())?.let {
-                    viewModel.search(
-                        accessToken = it,
-                        query = s.toString()
-                    )
+                // Hủy bỏ việc gọi API trước đó nếu người dùng tiếp tục gõ
+                searchRunnable?.let { searchHandler?.removeCallbacks(it) }
+
+                // Tạo một Runnable mới để gọi API sau khi người dùng ngừng gõ
+                searchRunnable = Runnable {
+                    SharedPreferencesManager.getToken(requireContext())?.let { token ->
+                        if (s.isNullOrBlank().not()) {
+                            viewModel.search(
+                                accessToken = token,
+                                query = s.toString()
+                            )
+                        } else {
+                            Toast.makeText(context, "Không có dữ liệu", Toast.LENGTH_SHORT).show()
+                        }
+                    } ?: run {
+                        Toast.makeText(context, "Token is missing", Toast.LENGTH_SHORT).show()
+                    }
                 }
+
+                // Thực hiện cuộc gọi API sau khoảng thời gian delay (300ms)
+                searchHandler?.postDelayed(searchRunnable!!, 300)
             }
 
             override fun afterTextChanged(s: Editable?) {}

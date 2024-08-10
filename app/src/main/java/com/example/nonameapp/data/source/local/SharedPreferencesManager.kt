@@ -2,8 +2,12 @@ package com.example.nonameapp.data.source.local
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.nonameapp.model.User
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.Date
 
 object SharedPreferencesManager {
     private const val PREF_NAME = "app_preferences"
@@ -37,12 +41,12 @@ object SharedPreferencesManager {
             putString("user_gender", user.gender)
             putString("user_created_at", user.createdAt.toString())
             putString("user_updated_at", user.updatedAt.toString())
-            putString("user_password", user.password)
             putString("user_is_locked", user.isLocked.toString())
             apply()
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     fun getUserInfo(context: Context): User? {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -56,30 +60,34 @@ object SharedPreferencesManager {
         val userGender = sharedPreferences.getString("user_gender", null)
         val userCreatedAt = sharedPreferences.getString("user_created_at", null)
         val userUpdatedAt = sharedPreferences.getString("user_updated_at", null)
-        val userPassword = sharedPreferences.getString("user_password", null)
         val userIsLocked = sharedPreferences.getString("user_is_locked", null)
 
-        return if (userId != null && userAvatar != null && userEmail != null && userFullName != null && userDateOfBirth != null && userRole != null && userStar != null && userGender != null && userCreatedAt != null && userUpdatedAt != null && userPassword != null && userIsLocked != null) {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-            dateFormat.parse(userDateOfBirth)?.let {
+        return if (userId != null && userAvatar != null && userEmail != null && userFullName != null && userDateOfBirth != null && userRole != null && userStar != null && userGender != null && userCreatedAt != null && userUpdatedAt != null && userIsLocked != null) {
                 User(
                     userId,
                     userEmail,
                     userFullName,
-                    it,
+                    convertDate(userDateOfBirth),
                     userIsLocked.toBoolean(),
                     userAvatar,
                     userRole,
                     userStar.toInt(),
                     userGender,
-                    dateFormat.parse(userCreatedAt),
-                    dateFormat.parse(userUpdatedAt),
-                    userPassword
+                    convertDate(userCreatedAt),
+                    convertDate(userUpdatedAt),
+                    ""
                 )
-            }
         } else {
             return null;
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun convertDate(data: String): Date {
+        val dateTimeString = "2024-06-30T09:50:18.977Z"
+
+        // Parse the string into an Instant
+        val instant = Instant.parse(dateTimeString)
+        return Date.from(instant)
+    }
 }
