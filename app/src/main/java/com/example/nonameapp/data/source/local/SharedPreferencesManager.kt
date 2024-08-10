@@ -31,7 +31,7 @@ object SharedPreferencesManager {
     fun saveUserInfo(context: Context, user: User) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
-            putString("user_id", user.id)
+            putString("user_id", user._id)
             putString("user_avatar", user.avatar)
             putString("user_email", user.email)
             putString("user_fullname", user.fullName)

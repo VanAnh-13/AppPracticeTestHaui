@@ -5,7 +5,7 @@ import java.util.Date
 
 data class User(
     @SerializedName("_id")
-    val id: String,
+    val _id: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("fullname")

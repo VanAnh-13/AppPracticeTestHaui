@@ -37,11 +37,11 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    fun showLoading() {
+    private fun showLoading() {
         _loading.value = true
     }
 
-    fun hideLoading() {
+    private fun hideLoading() {
         _loading.value = false
     }
 }

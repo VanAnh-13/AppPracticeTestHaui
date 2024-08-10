@@ -2,6 +2,7 @@ package com.example.nonameapp.ui
 
 import android.app.Dialog
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.os.Handler
 import android.os.Looper
@@ -14,13 +15,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.nonameapp.R
 import com.example.nonameapp.adapter.SearchAdapter
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.data.source.local.SharedPreferencesManager
+import com.example.nonameapp.databinding.CreatePostLayoutBinding
 import com.example.nonameapp.databinding.FragmentSearchBinding
 import com.example.nonameapp.request.CreatePostRequest
 import java.io.File
@@ -35,15 +40,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private var searchRunnable: Runnable? = null
 
     private var uri: Uri? = null
+    private lateinit var imageView: ImageView
 
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        val galleryUri = it
-        try {
-            uri = galleryUri
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                Glide.with(this)
+                    .load(uri)
+                    .circleCrop()
+                    .into(imageView)
+            }
         }
-    }
 
     override fun initData() {
         searchHandler = Handler(Looper.getMainLooper())
@@ -67,6 +74,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun setOnClick() {
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -103,48 +111,47 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialogue() {
         val dialogue = Dialog(requireContext())
 
         dialogue.setCancelable(true)
-        dialogue.setContentView(R.layout.create_post_layout)
+        val binding = CreatePostLayoutBinding.inflate(layoutInflater)
+        dialogue.setContentView(binding.root)
 
-        val content = dialogue.findViewById<EditText>(R.id.edtContent)
-        val image = dialogue.findViewById<ImageView>(R.id.cratePostImage)
-        val btnExit = dialogue.findViewById<Button>(R.id.btn_exit)
-        val btnSuccess = dialogue.findViewById<Button>(R.id.btn_no)
+        dialogue.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val content = binding.edtContent
+        this.imageView = binding.cratePostImage
+        val btnExit = binding.btnExit
+        val btnSuccess = binding.btnNo
 
         val token = SharedPreferencesManager.getToken(requireContext())
-        val userId = SharedPreferencesManager.getUserInfo(requireContext())?.id
+        val userId = SharedPreferencesManager.getUserInfo(requireContext())!!
 
-        image.setOnClickListener {
-            galleryLauncher.launch("image/*")
-            image.setImageURI(uri)
+        this.imageView.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         btnSuccess.setOnClickListener {
-            val createPostRequest = userId?.let { it1 ->
-                it1
-                CreatePostRequest(
-                    title = content.text.toString(),
-                    user = it1,
-                    image = uriToFile(uri = uri)
-                )
-            }
+            val createPostRequest = CreatePostRequest(
+                title = content.text.toString(),
+                user = userId._id,
+                image = uriToFile(uri = uri)?.path
+            )
 
-            if (createPostRequest != null) {
-                viewModel.createPost(
-                    accessToken = token!!,
-                    createPostRequest = createPostRequest,
-                    onCreateSuccess = { message ->
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                    },
-                    onCreateError = {
-                        Toast.makeText(requireContext(), "Create post error !", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                )
-            }
+            viewModel.createPost(
+                accessToken = token!!,
+                createPostRequest = createPostRequest,
+                onCreateSuccess = { message ->
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                },
+                onCreateError = {
+                    Toast.makeText(requireContext(), "Create post error !", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            )
+            dialogue.dismiss()
         }
 
         btnExit.setOnClickListener {

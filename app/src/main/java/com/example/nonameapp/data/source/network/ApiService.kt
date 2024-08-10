@@ -84,9 +84,9 @@ interface ApiService {
         @Body changePasswordRequest: ChangePasswordRequest
     ): ApiResponse<Any>
 
-    @PUT("/api/v1/posts")
+    @POST("/api/v1/posts")
     suspend fun createPost(
         @Header("Authorization") accessToken: String,
         @Body createPostRequest: CreatePostRequest
-    ): ApiResponse<CreatePostResponse>
+    ): ApiResponse<Any>
 }
