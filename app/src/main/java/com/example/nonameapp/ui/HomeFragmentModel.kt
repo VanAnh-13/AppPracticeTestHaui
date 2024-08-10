@@ -1,11 +1,10 @@
 package com.example.nonameapp.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.nonameapp.base.BaseViewModel
+import com.example.nonameapp.data.repository.SubjectRepository
 import com.example.nonameapp.data.source.network.RetrofitClient
-import com.example.nonameapp.model.SubjectResponse
-import com.example.nonameapp.repository.SubjectRepository
+import com.example.nonameapp.response.SubjectResponse
 
 private const val TAG = "HomeFragmentModel"
 

@@ -1,6 +1,5 @@
 package com.example.nonameapp.data.source.network
 
-import com.example.nonameapp.model.SubjectResponse
 import com.example.nonameapp.request.ChangePasswordRequest
 import com.example.nonameapp.request.ForgotPasswordRequest
 import com.example.nonameapp.request.LoginRequest
@@ -10,9 +9,11 @@ import com.example.nonameapp.request.UpdateProfileRequest
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
 import com.example.nonameapp.response.QuestionsResponse
-import com.example.nonameapp.response.SearchResponse
+import com.example.nonameapp.response.QuestionsTResponse
 import com.example.nonameapp.response.RegisterResponse
-import retrofit2.Call
+import com.example.nonameapp.response.SearchResponse
+import com.example.nonameapp.response.SubjectResponse
+import com.example.nonameapp.response.TestResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -27,7 +28,7 @@ interface ApiService {
     suspend fun login(@Body loginRequest: LoginRequest): ApiResponse<LoginResponse>
 
     @POST("/api/v1/auth/register")
-    fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
+    suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<Any>
 
     @POST("/api/v1/auth/forgot-password")
     suspend fun getOtp(@Body request: ForgotPasswordRequest): ApiResponse<Any>
@@ -42,6 +43,20 @@ interface ApiService {
     suspend fun getListSubject(
         @Header("Authorization") accessToken: String
     ): ApiResponse<SubjectResponse>
+
+    @GET("/api/v1/questions")
+    suspend fun getQuestionsBySubjectIdTest(
+        @Header("Authorization") accessToken: String,
+        @Header("_id") subjectId: String
+    ): ApiResponse<QuestionsResponse>
+
+    @GET("/api/v1/tests/subject/{id}")
+    suspend fun getTestBySubjectId(
+        @Path("id") subjectId: String
+    ): ApiResponse<TestResponse>
+
+    @GET("/api/v1/tests/{id}")
+    suspend fun getTestById(@Path("id") testId: String): ApiResponse<QuestionsTResponse>
 
     @GET("/api/v1/questions/subject/{id}")
     suspend fun getQuestionsBySubjectId(

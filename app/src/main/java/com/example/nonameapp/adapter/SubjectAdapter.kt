@@ -34,10 +34,4 @@ class SubjectAdapter(
         notifyItemChanged(this.dataList.size - 1)
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BaseViewHolder<ItemSubjectBinding> {
-        return super.onCreateViewHolder(parent, viewType)
-    }
 }
