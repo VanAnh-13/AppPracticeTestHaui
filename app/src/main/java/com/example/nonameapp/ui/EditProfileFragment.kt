@@ -3,8 +3,10 @@ package com.example.nonameapp.ui
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,12 +35,28 @@ class EditProfileFragment :
         get() = ViewModelProvider(this)[EditProfileViewModel::class.java]
 
     override fun initData() {
-        Glide.with(requireContext())
-            .load(SharedPreferencesManager.getUserInfo(requireContext())?.avatar)
-            .into(binding.profileImage)
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun bindData() {
+        val user = SharedPreferencesManager.getUserInfo(requireContext())
+        if (user != null) {
+            val avatarUrl = user.avatar
+
+            if (avatarUrl.isNotEmpty()) {
+                Glide.with(requireContext())
+                    .load(avatarUrl)
+                    .placeholder(R.drawable.user_img) // Hình ảnh mặc định khi ảnh chưa được tải
+                    .error(R.drawable.user_img) // Hình ảnh hiển thị khi có lỗi tải ảnh
+                    .into(binding.profileImage)
+            } else {
+                // Nếu không có avatar, đặt hình ảnh mặc định
+                Glide.with(requireContext())
+                    .load(R.drawable.user_img) // Hình ảnh mặc định
+                    .into(binding.profileImage)
+            }
+        }
     }
 
     override fun observeData() {

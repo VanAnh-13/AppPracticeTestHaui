@@ -9,27 +9,30 @@ import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
 import com.example.nonameapp.model.OnItemClickListener
 import com.example.nonameapp.data.source.local.SharedPreferencesManager
+import com.example.nonameapp.ui.SettingFragment
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate),
-    OnItemClickListener {
+    OnItemClickListener{
     private fun updateNewIcon() {
         var selectedIcon: String? = null
 
         binding.btnHome.setOnClickListener {
             selectedIcon = if (selectedIcon == "home") null else "home"
             updateIcons(selectedIcon = selectedIcon)
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.homeFragment)
         }
 
         binding.btnDocument.setOnClickListener {
             selectedIcon = if (selectedIcon == "document") null else "document"
             updateIcons(selectedIcon = selectedIcon)
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.questionFragment)
         }
 
         binding.btnSearch.setOnClickListener {
             selectedIcon = if (selectedIcon == "search") null else "search"
             updateIcons(selectedIcon = selectedIcon)
 
-            findNavController(binding.fragmentAllFunction.id).navigate(R.id.home_to_search)
+            findNavController(binding.fragmentAllFunction.id).navigate(R.id.searchFragment)
         }
 
         binding.btnDetail.setOnClickListener {

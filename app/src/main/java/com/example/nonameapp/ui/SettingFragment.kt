@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.R
+import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.activity.MainActivity
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentSettingBinding
