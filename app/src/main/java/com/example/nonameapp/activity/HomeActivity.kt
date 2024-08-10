@@ -58,15 +58,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
     override fun initData() {
-        val token = SharedPreferencesManager.getToken(this)
-        if (token != null) {
-            // Navigate to main screen
-            startActivity(Intent(this, HomeActivity::class.java))
-        } else {
-            // Navigate to login screen
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-        finish()
     }
 
     override fun bindData() {
