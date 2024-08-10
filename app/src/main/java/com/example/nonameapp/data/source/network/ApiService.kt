@@ -2,8 +2,10 @@ package com.example.nonameapp.data.source.network
 
 import com.example.nonameapp.model.SubjectResponse
 import com.example.nonameapp.request.ChangePasswordRequest
+import com.example.nonameapp.request.ForgotPasswordRequest
 import com.example.nonameapp.request.LoginRequest
 import com.example.nonameapp.request.RegisterRequest
+import com.example.nonameapp.request.RequestChangePassword
 import com.example.nonameapp.request.UpdateProfileRequest
 import com.example.nonameapp.response.ApiResponse
 import com.example.nonameapp.response.LoginResponse
@@ -26,6 +28,15 @@ interface ApiService {
 
     @POST("/api/v1/auth/register")
     fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
+
+    @POST("/api/v1/auth/forgot-password")
+    suspend fun getOtp(@Body request: ForgotPasswordRequest): ApiResponse<Any>
+
+    @POST("/api/v1/auth/verify-otp")
+    suspend fun verifyOtp(@Body request: ForgotPasswordRequest): ApiResponse<Any>
+
+    @POST("/api/v1/auth/reset-password")
+    suspend fun changePassword(@Body changePasswordRequest: RequestChangePassword): ApiResponse<Any>
 
     @GET("/api/v1/subjects/")
     suspend fun getListSubject(

@@ -69,9 +69,9 @@ class EditProfileFragment :
                     viewModel.changePassword(
                         it1,
                         ChangePasswordRequest(
-                            binding.oldPassword.text.toString(),
-                            binding.editPassword.text.toString(),
-                            binding.editConfirmPass.text.toString()
+                            oldPassword = binding.oldPassword.text.toString(),
+                            newPassword = binding.editPassword.text.toString(),
+                            confirmPassword = binding.editConfirmPass.text.toString()
                         )
                     )
                 }
