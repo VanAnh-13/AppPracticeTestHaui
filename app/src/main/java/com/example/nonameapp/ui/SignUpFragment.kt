@@ -1,28 +1,22 @@
 package com.example.nonameapp.ui
 
-import com.example.nonameapp.response.RegisterResponse
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.InputType
 import android.view.MotionEvent
 import android.widget.Toast
-import androidx.fragment.app.viewModels
-import com.example.nonameapp.activity.MainActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.R
+import com.example.nonameapp.activity.HomeActivity
 import com.example.nonameapp.base.BaseFragment
-import com.example.nonameapp.base.BaseViewModel
-import com.example.nonameapp.data.source.network.RetrofitClient.apiService
 import com.example.nonameapp.databinding.FragmentSignUpBinding
 import com.example.nonameapp.request.RegisterRequest
 import com.google.android.material.textfield.TextInputEditText
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {
-    private val myViewModel: BaseViewModel by viewModels()
-    override val viewModel: BaseViewModel
-        get() = myViewModel
+    override val viewModel: RegisterViewModel
+        get() = ViewModelProvider(this)[RegisterViewModel::class.java]
+
     override fun initData() {
     }
 
@@ -43,7 +37,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
             if (validateInputs(name, email, password, confirmPassword)) {
                 signUp(name, email, password)
             }
-
         }
         // Handle password visibility toggle
         setUpPasswordVisibilityToggle()
@@ -119,38 +112,17 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
     }
 
     private fun signUp(fullname: String, email: String, password: String) {
-        val call = apiService.register(registerRequest = RegisterRequest(fullname, email, password))
+        viewModel.register(
+            registerRequest = RegisterRequest(fullname, email, password),
+            onRegisterSuccess = {
+                startActivity(Intent(requireContext(), HomeActivity::class.java))
 
-        call.enqueue(object : Callback<RegisterResponse> {
+                Toast.makeText(requireContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show()
 
-            override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
-            ) {
-                if (response.isSuccessful) {
-                    Toast.makeText(requireContext(), "Sign up successful", Toast.LENGTH_SHORT)
-                        .show()
-                    navigateToMainScreen()
-                } else {
-                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
-                    Toast.makeText(
-                        requireContext(),
-                        "Sign up failed: $errorMessage",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "Sign up failed: ${t.message}", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
-    }
-
-    private fun navigateToMainScreen() {
-        val intent = Intent(requireActivity(), MainActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+            },
+            onRegisterError = {
+//                Toast.makeText(requireContext(), "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                println("Login error: ${it.message}")
+            })
     }
 }

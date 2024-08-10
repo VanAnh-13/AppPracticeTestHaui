@@ -1,4 +1,4 @@
-package com.example.nonameapp.repository
+package com.example.nonameapp.data.repository
 
 import com.example.nonameapp.base.BaseRepository
 import com.example.nonameapp.data.source.network.ApiService

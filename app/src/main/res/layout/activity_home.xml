@@ -46,7 +46,7 @@
             app:srcCompat="@drawable/vector" />
 
         <ImageView
-            android:id="@+id/btn_document"
+            android:id="@+id/btn_test"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

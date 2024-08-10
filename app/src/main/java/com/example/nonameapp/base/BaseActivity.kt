@@ -2,9 +2,9 @@ package com.example.nonameapp.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.example.nonameapp.ui.SignUpFragment
 
 abstract class BaseActivity<VB : ViewBinding>(
     private val bindingInflater: (LayoutInflater) -> VB

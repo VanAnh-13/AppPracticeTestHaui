@@ -19,6 +19,9 @@
         <action
             android:id="@+id/home_to_setting"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/home_to_exerciseTest"
+            app:destination="@id/exerciseTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -27,6 +30,26 @@
         <action
             android:id="@+id/question_to_home"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.example.nonameapp.ui.TestFragment"
+        android:label="TestFragment" >
+        <action
+            android:id="@+id/test_to_result"
+            app:destination="@id/resultTestFragment" />
+        <action
+            android:id="@+id/test_to_exercise"
+            app:destination="@id/exerciseTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultTestFragment"
+        android:name="com.example.nonameapp.ui.ResultTestFragment"
+        android:label="fragment_result_test"
+        tools:layout="@layout/fragment_result_test" >
+        <action
+            android:id="@+id/result_to_exercise"
+            app:destination="@id/exerciseTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -58,5 +81,14 @@
         <action
             android:id="@+id/edit_to_profile"
             app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseTestFragment"
+        android:name="com.example.nonameapp.ui.ExerciseTestFragment"
+        android:label="fragment_exercise_test"
+        tools:layout="@layout/fragment_exercise_test" >
+        <action
+            android:id="@+id/exercise_to_test"
+            app:destination="@id/testFragment" />
     </fragment>
 </navigation>
