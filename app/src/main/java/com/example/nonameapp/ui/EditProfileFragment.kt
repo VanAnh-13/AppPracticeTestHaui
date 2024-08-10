@@ -7,7 +7,9 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.data.source.local.SharedPreferencesManager
 import com.example.nonameapp.databinding.FragmentEditProfileBinding
@@ -58,6 +60,7 @@ class EditProfileFragment :
                         )
                     }
                 }
+
             }
             if (checkPassword(
                     binding.editPassword.text.toString(),
@@ -76,6 +79,8 @@ class EditProfileFragment :
                     )
                 }
             }
+
+            findNavController().navigate(R.id.edit_to_profile)
         }
 
         binding.changePhoto.setOnClickListener {

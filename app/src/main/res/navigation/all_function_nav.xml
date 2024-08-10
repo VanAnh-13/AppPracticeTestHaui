@@ -13,6 +13,12 @@
         <action
             android:id="@+id/home_to_question"
             app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/home_to_search"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/home_to_setting"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -21,5 +27,36 @@
         <action
             android:id="@+id/question_to_home"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.nonameapp.ui.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.nonameapp.ui.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/setting_to_profile"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.nonameapp.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/profile_to_edit"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.nonameapp.ui.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/edit_to_profile"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
