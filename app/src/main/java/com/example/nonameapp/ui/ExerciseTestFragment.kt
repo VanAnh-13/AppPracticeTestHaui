@@ -40,6 +40,12 @@ class ExerciseTestFragment :
         )
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+        homeActivity.onItemClick(true)
+    }
+
     override val viewModel: ExerciseTestModel
         get() = ViewModelProvider(this)[ExerciseTestModel::class.java]
 

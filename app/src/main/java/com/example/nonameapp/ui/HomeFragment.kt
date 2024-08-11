@@ -44,6 +44,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+        homeActivity.onItemClick(true)
+    }
+
     override val viewModel: HomeFragmentModel
         get() = ViewModelProvider(this)[HomeFragmentModel::class.java]
 

@@ -55,6 +55,12 @@ class TestFragment :
 
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+        homeActivity.onItemClick(true)
+    }
+
     override fun initData() {
         viewModel.getQuestionsT(ExerciseTestFragment.idSubject)
         startTime = System.currentTimeMillis()

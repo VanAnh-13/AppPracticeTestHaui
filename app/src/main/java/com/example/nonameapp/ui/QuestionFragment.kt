@@ -52,6 +52,12 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(FragmentQuestionB
         }
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+        homeActivity.onItemClick(true)
+    }
+
     override fun setOnClick() {
         var currentAnswer = ""
         var currentButton: AppCompatButton? = null

@@ -64,6 +64,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+
+    }
+
     override fun observeData() {
         viewModel.searchResults.observe(viewLifecycleOwner) { searchResults ->
             searchAdapter.setResultList(searchResults)
@@ -120,6 +126,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         dialogue.setContentView(binding.root)
 
         dialogue.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
 
         val content = binding.edtContent
         this.imageView = binding.cratePostImage

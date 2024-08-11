@@ -1,6 +1,5 @@
 package com.example.nonameapp.activity
 
-import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import androidx.navigation.findNavController
@@ -8,12 +7,10 @@ import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseActivity
 import com.example.nonameapp.databinding.ActivityHomeBinding
 import com.example.nonameapp.model.OnItemClickListener
-import com.example.nonameapp.data.source.local.SharedPreferencesManager
-import com.example.nonameapp.ui.SettingFragment
 import com.example.nonameapp.ui.HomeFragment
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate),
-    OnItemClickListener{
+    OnItemClickListener {
     private fun updateNewIcon() {
         var selectedIcon: String? = null
 
@@ -73,6 +70,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
     override fun initData() {
+        updateIcons(selectedIcon = "home")
     }
 
     override fun bindData() {
@@ -89,5 +87,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             binding.linearLayout.visibility = View.VISIBLE
         }
     }
+
+//    override fun onItemClick(isVisible: Boolean) {
+//        val navController = findNavController(binding.fragmentAllFunction.id)
+//        val currentDestination = navController.currentDestination
+//
+//        if (currentDestination?.id == R.id.homeFragment || currentDestination?.id == R.id.exerciseTestFragment) {
+//            binding.linearLayout.visibility = if (isVisible) View.VISIBLE else View.GONE
+//        }
+//    }
 
 }
