@@ -97,9 +97,10 @@ class TestFragment :
                 val resultTestFragment = ResultTestFragment()
                 val bundle = Bundle()
                 bundle.putString("elapsedTime", formatElapsedTime(elapsedTime))
+                bundle.putIntegerArrayList(KEY_ANSWER, viewModel.answer.value)
                 resultTestFragment.arguments = bundle
 
-                findNavController().navigate(R.id.test_to_result)
+                findNavController().navigate(R.id.test_to_result, bundle)
             }
             btnNext.setOnClickListener {
                 if (currentQuestion < totalQuestionsT.size - 1) {
@@ -175,6 +176,8 @@ class TestFragment :
         }
         button.setBackgroundResource(R.drawable.button_background)
         selectedAnswerId = button.id
+
+        viewModel.onAnswerItemClick(currentQuestion, button.text.toString())
     }
 
     private fun updateClock() {
@@ -188,6 +191,10 @@ class TestFragment :
         val minutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime) % 60
         val hours = TimeUnit.MILLISECONDS.toHours(elapsedTime)
         return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    companion object {
+        const val KEY_ANSWER = "answers"
     }
 }
 

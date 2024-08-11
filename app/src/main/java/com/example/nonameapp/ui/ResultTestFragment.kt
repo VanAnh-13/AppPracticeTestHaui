@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.nonameapp.R
 import com.example.nonameapp.base.BaseFragment
 import com.example.nonameapp.databinding.FragmentResultTestBinding
+import com.example.nonameapp.ui.TestFragment.Companion.KEY_ANSWER
 
 class ResultTestFragment :
     BaseFragment<FragmentResultTestBinding>(FragmentResultTestBinding::inflate) {
@@ -22,8 +23,12 @@ class ResultTestFragment :
 
     override fun initData() {
         // Giả lập kết quả câu trả lời, bạn có thể thay thế bằng dữ liệu thật
-        for (i in 1..totalQuestions) {
+        /*for (i in 1..totalQuestions) {
             answers.add((0..1).random() == 1) // Random đúng/sai
+        }*/
+
+        arguments?.getIntegerArrayList(KEY_ANSWER)?.map { it == 1 }?.let {
+            answers.addAll(it)
         }
     }
 
@@ -31,7 +36,7 @@ class ResultTestFragment :
         // Show test time
         val elapsedTime = arguments?.getString("elapsedTime") ?: "00:00:00"
         binding.txtTimeTest.text = "$elapsedTime"
-
+        binding.txtScore.text = answers.count { it }.toString()
         // Thêm các TextView hình tròn vào GridLayout
         for (i in 1..totalQuestions) {
             val textView = TextView(context).apply {
@@ -51,9 +56,7 @@ class ResultTestFragment :
                 setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
                 setBackgroundResource(R.drawable.circle_default)
                 gravity = android.view.Gravity.CENTER
-                setOnClickListener {
-                    updateCircleColor(this, answers[i - 1])
-                }
+                updateCircleColor(this, answers[i - 1])
             }
             binding.gridLayout.addView(textView)
         }
@@ -76,6 +79,7 @@ class ResultTestFragment :
             findNavController().navigate(R.id.result_to_home)
         }
     }
+
 }
 
 fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
