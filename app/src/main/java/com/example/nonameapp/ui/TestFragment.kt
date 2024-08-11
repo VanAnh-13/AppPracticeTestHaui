@@ -139,16 +139,6 @@ class TestFragment :
         }
     }
 
-    private fun displayQuestion(question: QuestionsT) {
-        binding.apply {
-            tvQuestion.text = question.content
-            answer1.text = question.answers.getOrNull(0)
-            answer2.text = question.answers.getOrNull(1)
-            answer3.text = question.answers.getOrNull(2)
-            answer4.text = question.answers.getOrNull(3)
-        }
-    }
-
     @SuppressLint("SetTextI18n")
     private fun updateProgress() {
         binding.tvProgress.text = "${currentQuestion + 1}/${totalQuestionsT.size}"
@@ -166,6 +156,32 @@ class TestFragment :
             button.setOnClickListener {
                 onAnswerClicked(button)
             }
+        }
+    }
+
+    private fun displayQuestion(question: QuestionsT) {
+        // Clear the selected answer state
+        selectedAnswerId = null
+        clearAnswerSelection()
+
+        binding.apply {
+            tvQuestion.text = question.content
+            answer1.text = question.answers.getOrNull(0)
+            answer2.text = question.answers.getOrNull(1)
+            answer3.text = question.answers.getOrNull(2)
+            answer4.text = question.answers.getOrNull(3)
+        }
+    }
+
+    private fun clearAnswerSelection() {
+        val buttons = listOf(
+            binding.answer1,
+            binding.answer2,
+            binding.answer3,
+            binding.answer4
+        )
+        buttons.forEach { button ->
+            button.setBackgroundResource(R.drawable.button_background_subjects)
         }
     }
 

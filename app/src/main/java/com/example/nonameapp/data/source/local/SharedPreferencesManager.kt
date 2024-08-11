@@ -42,7 +42,7 @@ object SharedPreferencesManager {
             putString("user_created_at", user.createdAt.toString())
             putString("user_updated_at", user.updatedAt.toString())
             putString("user_is_locked", user.isLocked.toString())
-            apply()
+            commit()
         }
     }
 
